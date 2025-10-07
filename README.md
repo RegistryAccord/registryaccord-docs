@@ -6,9 +6,9 @@ This repository contains the source code for the official documentation website 
 
 ### Overview
 
-This site serves as the public home for the RegistryAccord project. [cite\_start]It hosts our litepaper, architectural decision records (ADRs), and other key project documents [cite: 122-123, 734-735].
+This site serves as the public home for the RegistryAccord project. It hosts our litepaper, architectural decision records (ADRs), and other key project documents.
 
-[cite\_start]The site is built using **Nextra**, a documentation generator built on top of Next.js and React[cite: 255, 478, 517].
+The site is built using **Nextra**, a documentation generator built on top of Next.js and React.
 
 ### Running the Site Locally
 
@@ -53,7 +53,7 @@ All documentation content is written in Markdown (`.mdx`) and located in the `/p
 
 ### Deployment
 
-[cite\_start]This site is automatically deployed via **Vercel**[cite: 260]. Every merge to the `main` branch will trigger a new production deployment.
+This site is automatically deployed via **Vercel**. Every merge to the `main` branch will trigger a new production deployment.
 
 ### License
 

@@ -42,7 +42,9 @@ jobs:
         run: npm run build
 
       - name: Copy docs.html to index.html
-        run: cp out/docs.html out/index.html
+        run: |
+          cp out/docs.html out/index.html
+          cp out/docs.html out/docs/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

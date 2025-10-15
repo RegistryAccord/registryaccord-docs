@@ -5,7 +5,7 @@ import nextra from 'nextra'
  */
 const nextConfig = {
   output: 'export',
-  basePath: '/registryaccord-docs', // Replace with your repo name
+  basePath: '/registryaccord-docs',
   assetPrefix: '/registryaccord-docs',
   images: {
     unoptimized: true // mandatory, otherwise won't export

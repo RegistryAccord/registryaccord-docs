@@ -95,7 +95,7 @@ The site is deployed using a GitHub Actions workflow defined in `.github/workflo
 2. Copies `docs.html` to `index.html` to ensure the documentation is the root page
 3. Deploys the static files to GitHub Pages
 
-The site can be accessed at: https://registryaccord.github.io/registryaccord-docs/
+The site can be accessed at: [https://registryaccord.github.io/registryaccord-docs/](https://registryaccord.github.io/registryaccord-docs/docs)
 
 ### Manual Deployment
 

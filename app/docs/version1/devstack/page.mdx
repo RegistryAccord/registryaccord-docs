@@ -1,0 +1,197 @@
+# Devstack
+
+The RegistryAccord Devstack is a one-command, reproducible local environment that boots all core services and dependencies for Phase 1 development, testing, and demonstration. It includes Identity, CDV, Gateway, and their dependencies (Postgres, NATS JetStream, MinIO).
+
+## Contents
+
+- Quickstart
+- Services and ports
+- Environment variables
+- Make commands
+- End-to-end demo
+- JWKS rotation demo
+- Conformance testing
+- Troubleshooting
+- Security notes
+- Version pinning
+
+## Quickstart
+
+### Prerequisites
+
+- Docker (Desktop or Engine) and Docker Compose v2
+- Make
+- curl
+- OpenSSL (for local key generation)
+
+### Clone and Boot
+
+```bash
+git clone https://github.com/RegistryAccord/registryaccord-devstack.git
+cd registryaccord-devstack
+
+# Prepare local env (no secrets committed)
+cp .env.example .env
+# Optionally edit .env (ports, image tags, simple dev credentials)
+
+# Start the full stack and wait for readiness
+make up
+
+# Seed deterministic data (idempotent)
+make seed
+
+# Run the guided demo (identity → session → post:create → media finalize → listRecords)
+make demo
+```
+
+### Stop and Clean
+
+```bash
+# Stop services
+make down
+
+# Remove containers, volumes, and seed artifacts (destructive)
+make clean
+```
+
+## Services and Ports
+
+| Service   | Host URL                  | Internal Hostname | Notes                                       |
+|-----------|---------------------------|-------------------|---------------------------------------------|
+| Identity  | http://localhost:8081     | http://identity   | DID:plc, nonce→JWT sessions, JWKS           |
+| CDV       | http://localhost:8082     | http://cdv        | Record writes/lists, media finalize, events |
+| Gateway   | http://localhost:8083     | http://gateway    | Feed/search/profile APIs, payment stubs     |
+| Postgres  | localhost:5432            | postgres          | Structured data                              |
+| NATS      | localhost:4222            | nats              | JetStream (RA_RECORDS, RA_MEDIA)             |
+| MinIO     | http://localhost:9000     | minio             | S3-compatible media storage                  |
+
+Health and readiness:
+- Each service exposes `/healthz` (liveness) and `/readyz` (readiness)
+- `make up` waits until all services report ready before exiting
+
+## Environment Variables
+
+Devstack respects "process env > env_file > defaults." `.env` is for local development only. Do not commit secrets.
+
+Common keys (subset):
+
+**Identity:**
+- `ID_ISSUER_URL` (e.g., http://identity:8081)
+- `ID_ALLOWED_AUDIENCES` (e.g., cdv,gateway)
+- `ID_JWT_SIGNING_KEY` (base64 Ed25519; dev only if provided here)
+- `PORT` (default 8081)
+
+**CDV:**
+- `CDV_DB_DSN` (Postgres DSN)
+- `CDV_NATS_URL` (e.g., nats:4222)
+- `CDV_S3_ENDPOINT`, `CDV_S3_BUCKET`, `CDV_S3_ACCESS_KEY`, `CDV_S3_SECRET_KEY`
+- `CDV_JWT_ISSUER` (e.g., http://identity:8081), `CDV_JWT_AUDIENCE` (cdv)
+- `PORT` (default 8082)
+
+**Gateway:**
+- `GATEWAY_PORT` (default 8083)
+- `GATEWAY_JWT_ISSUER` (e.g., http://identity:8081)
+- `GATEWAY_CDV_BASE_URL` (e.g., http://cdv:8082)
+- `GATEWAY_NATS_URL` (e.g., nats://nats:4222)
+- `GATEWAY_DB_DSN` (Postgres DSN for index)
+
+See `.env.example` for a complete list and safe dev defaults.
+
+## Make Commands
+
+```bash
+make up          # Boot all services and wait for readiness
+make down        # Stop services
+make restart     # Restart services
+make ps          # Show service status
+make logs        # Tail logs for all services
+make logs S=cdv  # Tail logs for a single service (S=identity|cdv|gateway|postgres|nats|minio)
+make seed        # Seed deterministic data (idempotent)
+make demo        # Guided end-to-end flow
+make rotate-keys # Trigger Identity JWKS key rotation demo (overlap window)
+make conformance # Run conformance suite against the local stack (if configured)
+make clean       # Remove containers, volumes, artifacts (destructive)
+make help        # Show command help
+```
+
+Tip: `make logs S=identity` is helpful during JWT/JWKS debugging.
+
+## End-to-End Demo
+
+The demo script performs:
+1. Create a DID in Identity
+2. Request a nonce and sign it to obtain a short-lived JWT (`aud=cdv`)
+3. Call CDV protected endpoints:
+   - `POST /v1/repo/record` (optionally `uploadInit` → `finalize` first)
+   - `GET /v1/repo/listRecords` with cursor pagination
+4. (Optional) Hit Gateway v0 stubs for a basic feed/search walkthrough
+
+Run:
+```bash
+make demo
+```
+
+## JWKS Rotation Demo
+
+Identity publishes JWKS at:
+- `/.well-known/jwks.json`
+- `/v1/jwks`
+
+CDV caches JWKS for a short TTL and refreshes periodically. The rotation demo:
+- Adds a new key (new `kid`) and continues serving old+new for an overlap window
+- Shows CDV verification continuity during the overlap
+- Retires the old key cleanly after the window
+
+Run:
+```bash
+make rotate-keys
+```
+
+## Conformance Testing
+
+If the conformance harness is configured in this repo:
+```bash
+make conformance
+```
+
+This will:
+- Boot the stack (if not already up)
+- Run black-box tests against Identity and CDV
+- Produce a pass-rate summary
+
+Targets:
+- Pass rate ≥ 95% on the local stack
+- Deterministic envelopes, error codes, and timestamps
+
+## Troubleshooting
+
+- **Ports in use**
+  - Edit `.env` to change service ports, then `make down && make up`
+
+- **Slow boot or readiness timeouts**
+  - Increase Docker memory/CPU; ensure no heavy background workloads
+
+- **Stale volumes / seed drift**
+  - `make clean` to reset Postgres/MinIO/NATS volumes
+
+- **JWKS cache issues**
+  - Wait for TTL expiry or restart CDV; ensure Identity is reachable at `ID_ISSUER_URL`
+
+- **Gateway service issues**
+  - Check Gateway logs: `make logs S=gateway`
+  - Ensure Gateway can reach Identity and CDV services
+  - Verify Gateway configuration in `.env`
+
+- **Docker Desktop quirks**
+  - Restart Docker Desktop; re-run `make up`
+
+## Security Notes
+
+- Never commit real secrets. Use `.env.example` only for documenting keys
+- Devstack defaults deny CORS by default; browser testing may enable `localhost` origins explicitly
+- MinIO is for local dev only; not publicly exposed
+
+## Version Pinning
+
+- Image tags for Identity, CDV, Gateway, and dependency versions are pinned in `docker-compose.yml`
+- Track version bumps in `VERSIONS.md` and update `.env.example`/demo scripts as needed

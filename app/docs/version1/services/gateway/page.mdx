@@ -1,0 +1,214 @@
+# Gateway Service
+
+The Gateway Service provides read-side APIs for the RegistryAccord protocol, including feeds, search, profiles, and deterministic stubs for payments and advertising in Phase 1. It integrates with the Identity service for JWT verification and the CDV service for content retrieval.
+
+## Features
+
+- Following and author feeds with deterministic cursor pagination
+- Basic search over posts and profiles (in-memory or Postgres index)
+- Profile lookup with lightweight aggregates (optional)
+- Deterministic Phase 1 stubs for payments (donate/subscribe/unlock)
+- DID/JWT verification using Identity JWKS (aud=gateway)
+- Optional NATS JetStream consumers for incremental indexing
+- Structured JSON logs, Prometheus metrics, health/readiness probes
+
+## Quick Start
+
+### Requirements
+
+- Go 1.25+
+- Make (recommended)
+- Docker + Docker Compose v2 (for devstack)
+- Postgres (optional for persisted index)
+- NATS (optional for event-driven indexing)
+
+### Environment Variables
+
+Key environment variables:
+
+- `GATEWAY_PORT` - HTTP port (default: 8083)
+- `GATEWAY_JWT_ISSUER` - Identity issuer URL (used to derive JWKS URL if unset)
+- `GATEWAY_CDV_BASE_URL` - Base URL for CDV HTTP API
+- `GATEWAY_DB_DSN` - Postgres DSN for persisted index (optional)
+- `GATEWAY_NATS_URL` - NATS URL for event consumption (optional)
+
+### Run Standalone
+
+```bash
+GATEWAY_PORT=8083 \
+GATEWAY_JWT_ISSUER=http://localhost:8081 \
+GATEWAY_CDV_BASE_URL=http://localhost:8082 \
+./bin/gatewayd
+```
+
+## API Endpoints
+
+### Health Check
+
+```bash
+curl http://localhost:8083/healthz
+```
+
+### Author Feed (Public)
+
+```bash
+curl "http://localhost:8083/v1/feed/author?did=did:plc:abc123"
+```
+
+### Search (Public)
+
+```bash
+curl "http://localhost:8083/v1/search?q=hello&type=post"
+```
+
+### Profile Lookup (Public)
+
+```bash
+curl "http://localhost:8083/v1/profile/did:plc:abc123"
+```
+
+### Following Feed (Requires JWT)
+
+```bash
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  "http://localhost:8083/v1/feed/following?did=did:plc:abc123"
+```
+
+### Payment Stubs (Requires JWT)
+
+```bash
+# Donate
+curl -X POST http://localhost:8083/v1/payments/donate \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"fromDid": "did:plc:sender", "toDid": "did:plc:recipient", "amount": 100, "currency": "USD"}'
+
+# Subscribe
+curl -X POST http://localhost:8083/v1/payments/subscribe \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"subscriberDid": "did:plc:subscriber", "creatorDid": "did:plc:creator", "planId": "premium"}'
+
+# Unlock
+curl -X POST http://localhost:8083/v1/payments/unlock \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"did": "did:plc:user", "contentUri": "did:plc:user/app.post/rkey123"}'
+```
+
+## Authentication
+
+- Bearer JWTs issued by Identity service
+- Audience (`aud`) must include `gateway`
+- JWKS fetched from Identity service (e.g., `/.well-known/jwks.json`)
+- Keys are cached with a short TTL and refreshed periodically
+- Verification includes: signature, issuer, audience, expiration, key ID
+
+## Data Sources
+
+### CDV Integration
+
+The Gateway service retrieves data from the CDV service:
+
+- Direct HTTP calls for on-demand data retrieval
+- Optional event consumption for incremental indexing
+- Caching of frequently accessed data
+
+### Indexing
+
+Two indexing options are available:
+
+1. **Memory Index** (default)
+   - Suitable for development and small deployments
+   - All data stored in memory
+   - Fast access but not persistent
+
+2. **PostgreSQL Index** (production)
+   - Persistent storage for index data
+   - Better performance for large datasets
+   - Supports complex queries
+
+### Event Consumption
+
+Optional NATS JetStream consumers:
+
+- Subscribe to CDV streams (records/media)
+- Incremental updates with idempotent processing
+- Durable consumers with at-least-once delivery
+- Deduplication keyed by correlationId
+
+## APIs
+
+All responses use envelopes:
+- Success: `{ "data": { ... }, "meta": { ...? } }`
+- Error: `{ "error": { "code": "...", "message": "...", "details": { ...? }, "correlationId": "..." } }`
+
+### Following Feed
+
+`GET /v1/feed/following?did={viewerDid}&limit=25&cursor={cursor?}&since={ts?}&until={ts?}`
+
+Returns posts from creators that the viewer follows. Personalized results require a JWT.
+
+### Author Feed
+
+`GET /v1/feed/author?did={authorDid}&limit=25&cursor={cursor?}&since={ts?}&until={ts?}`
+
+Returns posts by a specific author. Publicly accessible.
+
+### Search
+
+`GET /v1/search?q={query}&type=post|profile|all&limit=25&cursor={cursor?}`
+
+Search across posts and profiles. Publicly accessible.
+
+### Profile
+
+`GET /v1/profile/{did}`
+
+Retrieve profile information for a DID. Publicly accessible.
+
+### Payments (Stubs)
+
+Phase 1 includes deterministic stubs for payment operations:
+- `POST /v1/payments/donate`
+- `POST /v1/payments/subscribe`
+- `POST /v1/payments/unlock`
+
+## Pagination
+
+All list APIs use deterministic cursor pagination:
+- Reverse chronological by `indexedAt`
+- Tie-break on record key (`rkey`)
+- Consistent across requests
+- Opaque cursor strings
+
+## Observability
+
+### Health Checks
+
+- Liveness: `GET /healthz`
+- Readiness: `GET /readyz`
+
+### Metrics
+
+- Prometheus metrics at `GET /metrics`
+- Request latency and count metrics
+- Error rate metrics
+- Index update metrics
+- Cache hit/miss metrics
+
+### Logging
+
+- Structured JSON logs
+- Correlation IDs for request tracing
+- DID information when authorized
+- Log levels: debug, info, warn, error
+- No sensitive data in logs
+
+## Security
+
+- Deny-all CORS by default
+- Strict input validation on query parameters
+- Never log secrets or tokens
+- Redact PII in logs and traces
+- JWT verification with key rotation support

@@ -47,6 +47,34 @@ pnpm dev
 ### 4. View the site
 Open your browser and navigate to http://localhost:3000. The site will automatically reload as you make changes to the source files.
 
+## Running with Docker
+
+You can also run the documentation site using Docker for a consistent environment.
+
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Run with Docker Compose
+```bash
+docker-compose up
+```
+
+This will start the documentation site on http://localhost:3000.
+
+### Run in Development Mode with Docker
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+This will start the development server with hot reloading on http://localhost:3000.
+
+### Build and Run Docker Image Manually
+```bash
+docker build -t registryaccord-docs .
+docker run -p 3000:3000 registryaccord-docs
+```
+
 ## Contributing to the Documentation
 
 We welcome contributions to improve our documentation! Fixing typos, clarifying confusing sentences, or adding examples are all valuable ways to help the project.
@@ -57,7 +85,46 @@ All documentation content is written in Markdown (.mdx) and located in the /page
 
 ## Deployment
 
-This site is automatically deployed via Vercel. Every merge to the main branch will trigger a new production deployment.
+This site is automatically deployed to GitHub Pages. Every merge to the main branch will trigger a new production deployment via GitHub Actions.
+
+### GitHub Pages Deployment
+
+The site is deployed using a GitHub Actions workflow defined in `.github/workflows/deploy.yml`. The workflow:
+
+1. Builds the static site using Nextra
+2. Copies `docs.html` to `index.html` to ensure the documentation is the root page
+3. Deploys the static files to GitHub Pages
+
+The site can be accessed at: https://registryaccord.github.io/registryaccord-docs/
+
+### Manual Deployment
+
+To manually deploy the site:
+
+1. Build the static site:
+   ```bash
+   npm run build
+   ```
+
+2. The static files will be generated in the `out` directory
+
+3. Deploy the contents of the `out` directory to your preferred hosting platform
+
+### Docker Deployment
+
+The site can also be deployed using Docker:
+
+1. Build the Docker image:
+   ```bash
+   docker build -t registryaccord-docs .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 3000:3000 registryaccord-docs
+   ```
+
+The site will be available at http://localhost:3000
 
 ## License
 

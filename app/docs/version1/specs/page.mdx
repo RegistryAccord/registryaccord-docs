@@ -1,0 +1,113 @@
+# Specifications
+
+The RegistryAccord protocol specifications are the canonical, language-neutral source of truth for how the network operates. This repository contains the technical specifications, data schemas (Lexicons), and architectural decisions that define the protocol.
+
+## What is this Repository?
+
+This repository is the canonical source for the RegistryAccord protocol. It contains:
+
+- **Technical specifications** that define how the network operates
+- **Data schemas (Lexicons)** in JSON Schema format that define all network objects and actions
+- **Architecture Decision Records (ADRs)** that outline the rationale behind key technical choices
+
+All services and client tooling, regardless of programming language, must adhere to the standards defined here.
+
+## Current Status
+
+The RegistryAccord protocol is currently in **Phase 1: The Architect Phase**.
+
+The specifications are in an early, formative stage and should be considered a `DRAFT` subject to change. The project is building in the open and welcomes community feedback.
+
+## Repository Structure
+
+### /schemas
+
+This directory contains the core of the protocol - the **Lexicon** definitions in JSON Schema format that define all network objects and actions.
+
+Key schemas include:
+- `com.registryaccord.identity` - Identity and DID operations
+- `com.registryaccord.feed.post` - Post records for content
+- And other collection schemas for the protocol
+
+### /adr
+
+This directory contains **Architecture Decision Records (ADRs)** that document the rationale behind key technical choices, such as:
+
+- Default DID method selection
+- Schema versioning approach
+- Event system design
+- Authentication mechanisms
+
+### Key Documents
+
+- **GOVERNANCE.md**: Policy for schema versioning, process for proposing changes, and deprecation policy
+- **TERMINOLOGY.md**: Defines normative language using RFC 2119 and RFC 8174
+- **LEXICON.md**: Guidelines for schema authoring
+- **INDEX.md**: Current catalog of all schemas
+- **SPEC-README.md**: Rules for schema authoring
+
+## Lexicon Schemas
+
+RegistryAccord uses Lexicon v1 for schema definitions. Lexicon is a schema language that allows for:
+
+- Precise data shape definitions
+- Versioning and evolution policies
+- Cross-language compatibility
+- Automated validation and code generation
+
+### Schema Structure
+
+Lexicon schemas follow this structure:
+
+```json
+{
+  "lexicon": 1,
+  "id": "com.registryaccord.feed.post",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["text"],
+        "properties": {
+          "text": { "type": "string", "maxLength": 3000 },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}
+```
+
+### Schema Evolution
+
+Schemas follow strict evolution policies:
+
+- Backward compatibility is maintained
+- Breaking changes require new NSIDs
+- Deprecation follows a clear process
+- Versioning uses semantic versioning principles
+
+## Normative Language
+
+Normative language in the specifications uses RFC 2119 and RFC 8174:
+
+- **MUST** / **MUST NOT**: Absolute requirements
+- **SHOULD** / **SHOULD NOT**: Strongly recommended but with possible exceptions
+- **MAY** / **OPTIONAL**: Truly optional features
+
+These terms are only interpreted as defined when capitalized.
+
+## Contributing
+
+Community feedback and contributions are welcome:
+
+1. Read `CONTRIBUTING.md` for details on the contribution process
+2. Follow the code of conduct
+3. Propose changes through the established process
+4. Participate in discussions on proposed changes
+
+## License
+
+The content of the specifications repository is licensed under the MIT License.

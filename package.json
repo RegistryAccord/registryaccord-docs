@@ -1,0 +1,26 @@
+{
+  "name": "registryaccord-docs",
+  "version": "0.0.1",
+  "description": "Registry Accord Documentation",
+  "type": "module",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "postbuild": "pagefind --site .next/server/app --output-path out/_pagefind",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@mdx-js/react": "^3.1.1",
+    "next": "^15.5.5",
+    "nextra": "^4.6.0",
+    "nextra-theme-docs": "^4.6.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "pagefind": "^1.4.0"
+  }
+}

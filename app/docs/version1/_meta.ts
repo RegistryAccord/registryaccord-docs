@@ -1,10 +1,8 @@
 export default {
-    architecture: '',
-    cli: '',
-    conformance: '',
-    devstack: '',
-    specs: '',
-    contributing: '',
-    deployment: '',
-    services: '',
+  'phase-1': {
+    title: 'Phase 1'
+  },
+  reference: {
+    title: 'Reference'
+  }
 }

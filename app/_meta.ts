@@ -5,21 +5,22 @@ export default {
     },
     docs: {
         type: 'page',
-        title: 'Documentation'
+        title: 'Documentation',
+        href: '/docs'
     },
-    /*
-    versions: {
-        type: 'menu',
-        title: 'Versions',
-        items: {
-            _3: {
-                title: 'Nextra v3 Docs',
-                href: 'https://nextra-v2-pyibc76cq-shud.vercel.app'
-            },
-            _2: {
-                title: 'Nextra v2 Docs',
-                href: 'https://nextra-v2-oe0zrpzjp-shud.vercel.app'
-            }
-        }
-    }*/
+    'Start demo': {
+        type: 'page',
+        title: 'Start Demo',
+        href: '/docs/getting-started/quickstart'
+    },
+    'Version 1': {
+        type: 'page',
+        title: 'Version 1',
+        href: '/docs/version1/phase-1/deliverables'
+    },
+    Contribute: {
+        type: 'page',
+        title: 'Contribute',
+        href: '/docs/contributing'
+    }
 }

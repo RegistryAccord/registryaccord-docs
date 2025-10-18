@@ -1,0 +1,97 @@
+# Architecture
+
+Understanding the RegistryAccord system architecture is essential for building applications and contributing to the ecosystem.
+
+## System Narrative
+
+RegistryAccord follows a microservices architecture with specialized components that work together to provide a complete platform for creators.
+
+### Identity Service
+
+The Identity Service is the foundation of the RegistryAccord ecosystem, managing decentralized identifiers (DIDs) and authentication:
+
+- DID creation and resolution
+- JWT session management via nonce challenge
+- Key rotation with overlapping validity windows
+- JWKS publication for public key discovery
+- Identity recovery mechanisms
+
+### Creator Data Vault (CDV)
+
+The Creator Data Vault provides secure storage for creator content and data:
+
+- Schema-enforced record storage
+- Media upload and management
+- JWT-based authorization
+- Event streaming via NATS JetStream
+- S3-compatible storage backend
+
+### Gateway Service
+
+The Gateway service provides read-side APIs for content discovery and social features:
+
+- Feed generation (following and author feeds)
+- Search functionality
+- Profile lookups
+- Payment stubs for Phase 1
+- JWT verification using Identity service JWKS
+
+## Data Flow
+
+1. **Authentication Flow**:
+   - Client requests a nonce from the Identity service
+   - Client signs the nonce with their private key
+   - Client exchanges the signed nonce for a JWT
+   - Client uses the JWT to authenticate with other services
+   - Services verify JWTs using public keys from Identity's JWKS endpoint
+
+2. **Content Flow**:
+   - Content is created through the CDV service
+   - CDV emits events via NATS JetStream
+   - Gateway service consumes events to maintain indexes
+   - Clients query the Gateway for feeds and search results
+   - Gateway may call CDV directly for certain operations
+
+## Technical Components
+
+### NATS JetStream
+
+Event streaming backbone for real-time updates:
+
+- `cdv.records.<collection>.created` events
+- `cdv.media.finalized` events
+- At-least-once delivery with deduplication by correlationId
+
+### PostgreSQL
+
+Structured data storage (when configured):
+
+- Identity and session data
+- Content metadata
+- Social graph information
+
+### Object Storage
+
+S3-compatible storage for media files:
+
+- Media assets uploaded through CDV
+- Content delivery optimization
+- Scalable storage solution
+
+## Security Patterns
+
+### JWT/JWKS Flow
+
+- EdDSA/Ed25519 algorithm for signing
+- Key ID (kid) in headers for JWKS lookup
+- Rotation overlap windows for seamless transitions
+- Issuer and audience validation
+
+### Deterministic Pagination
+
+- Reverse chronological by indexedAt
+- Tie-break on rkey for stability
+- Opaque cursor encoding
+- Stable under interleaved writes
+
+This architecture provides a solid foundation for creator-owned digital presence while maintaining scalability and interoperability.

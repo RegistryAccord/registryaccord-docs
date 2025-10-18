@@ -1,5 +1,11 @@
 export default {
-  'version1': {
-    title: 'Version 1'
+  about: {
+    title: 'About'
+  },
+  'getting-started': {
+    title: 'Getting Started'
+  },
+  contributing: {
+    title: 'Contributing'
   }
 }

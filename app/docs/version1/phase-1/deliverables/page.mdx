@@ -1,0 +1,198 @@
+# Phase 1 Deliverables
+
+The concrete outputs that will be completed in Phase 1, organized by service.
+
+## Identity Service
+
+### Core Features
+
+- **DID Lifecycle**:
+  - Create DID with EdDSA/Ed25519 keypair
+  - Resolve DID to DID Document
+  - Key rotation with overlap windows
+  - Identity recovery (feature-flagged)
+
+- **Authentication**:
+  - Short-lived JWT session issuance via nonce challenge
+  - JWKS exposure for public key discovery
+  - Proper cache headers on JWKS endpoints
+
+- **Security**:
+  - TLS 1.3 enforcement
+  - CORS policies
+  - Key lifecycle management
+
+- **Observability**:
+  - Structured logging with correlation IDs
+  - Comprehensive metrics for all key operations
+  - Health check endpoints
+
+### Quality Attributes
+
+- **Performance**: 50ms p95 for DID resolution
+- **Availability**: 99.9% uptime target
+- **Security**: Pass static analysis and dependency scans
+
+## CDV Service
+
+### Core Features
+
+- **Record Management**:
+  - Create records with schema validation
+  - List records with deterministic pagination
+  - Schema version persistence
+  - Idempotency on record creation
+
+- **Media Handling**:
+  - Media upload with SHA-256 checksum verification
+  - Media finalize with size persistence
+  - Event emission for media finalization
+
+- **Security**:
+  - JWT-based authorization
+  - Input validation and sanitization
+
+- **Observability**:
+  - Structured logging with correlation IDs
+  - Metrics for all operations
+  - Health check endpoints
+
+### Quality Attributes
+
+- **Performance**: 100ms p95 for record operations
+- **Scalability**: Handle 1000 concurrent users
+- **Data Integrity**: 100% checksum verification
+
+## Gateway Service
+
+### Core Features
+
+- **Feed APIs**:
+  - Following feed with deterministic ordering
+  - Author feed with deterministic ordering
+  - Profile reads with optional counts
+
+- **Search**:
+  - Basic text search
+  - Deterministic ordering
+
+- **Security**:
+  - JWT verification using Identity service JWKS
+  - Anonymous reads for public queries
+  - Authenticated reads for personalized feeds
+
+- **Observability**:
+  - Structured logging with correlation IDs
+  - Metrics for all operations
+  - Health check endpoints
+
+### Quality Attributes
+
+- **Performance**: 200ms p95 for feed operations
+- **Availability**: 99.9% uptime target
+
+## Devstack
+
+### Core Features
+
+- **Service Orchestration**:
+  - Docker Compose setup for all services
+  - Health-checked startup
+  - Deterministic seeding (5 DIDs, 50 posts, 10 media, 30 interactions)
+
+- **Developer Experience**:
+  - Make targets for common operations (up, seed, demo, rotate-keys)
+  - Environment variable configuration
+  - Documentation and examples
+
+### Quality Attributes
+
+- **Reproducibility**: 5-minute demo from fresh clone
+- **Reliability**: Consistent startup and seeding
+
+## Conformance Suite
+
+### Core Features
+
+- **Test Coverage**:
+  - Black-box suites for Identity, CDV, Gateway
+  - Positive and negative test cases
+  - Performance assertions
+
+- **Reporting**:
+  - JSON/JUnit/HTML reports
+  - Artifact attachment to builds
+  - Golden fixtures for validation
+
+### Quality Attributes
+
+- **Comprehensiveness**: ≥95% pass rate required
+- **Reliability**: Consistent results across environments
+
+## SDK
+
+### Core Features
+
+- **Client Library**:
+  - RAClient with SessionManager
+  - Identity module (createDid, resolveDid, getNonce, issueSession)
+  - CDV module (createRecord, listRecords, media upload/finalize)
+  - Gateway module (feedFollowing, feedAuthor, search, getProfile)
+
+- **Utilities**:
+  - Pagination utilities with async generators
+  - Error model with proper mapping
+  - Retry mechanism for 429/503 errors
+  - JWKS helpers for key verification
+
+### Quality Attributes
+
+- **Usability**: Examples completing identity->session->post:create->list in less than or equal to 20 lines
+- **Compatibility**: Node.js and browser entry points
+- **Performance**: Minimal bundle size
+
+## CLI
+
+### Core Features
+
+- **Command Set**:
+  - Identity management (create, resolve)
+  - Session management (nonce, issue)
+  - Content management (post create/list)
+  - Feed interaction (following, author)
+  - Search functionality
+  - Profile lookup
+
+- **UX Features**:
+  - Deterministic exit codes (0,2,3,4,5)
+  - JSON mode for CI
+  - Media upload with checksum verification
+  - Automatic retries with exponential backoff
+
+### Quality Attributes
+
+- **Reliability**: Five-minute demo script
+- **Portability**: Cross-platform compatibility
+
+## Documentation
+
+### Core Features
+
+- **Content Organization**:
+  - Quickstart guides for all repositories
+  - API examples
+  - E2E demo flows
+  - Schema catalog
+
+- **Navigation**:
+  - Clear information architecture
+  - Search functionality
+  - Cross-linking between related topics
+
+### Quality Attributes
+
+- **Completeness**: All Phase 1 features documented
+- **Accuracy**: Code examples function correctly
+- **Usability**: Easy to navigate and understand
+
+Meeting these deliverables ensures Phase 1 provides a solid foundation for the RegistryAccord ecosystem.

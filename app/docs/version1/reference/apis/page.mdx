@@ -1,0 +1,379 @@
+# API Reference
+
+Example-first documentation for core Identity, CDV, and Gateway endpoints.
+
+## Identity Service
+
+### Create DID
+
+**POST** `/v1/identity`
+
+Creates a new DID with an EdDSA/Ed25519 keypair.
+
+```bash
+# Request
+curl -X POST http://localhost:3000/v1/identity
+```
+
+# Response
+```json
+{
+  "data": {
+    "did": "did:plc:abc123",
+    "publicKey": "public-key-hex"
+  }
+}
+```
+
+### Resolve DID
+
+**GET** `/v1/identity/[did]`
+
+Resolves a DID to its DID Document.
+
+```bash
+# Request
+curl http://localhost:3000/v1/identity/did:plc:abc123
+```
+
+# Response
+```json
+{
+  "data": {
+    "did": "did:plc:abc123",
+    "publicKey": "public-key-hex",
+    "created": "2023-01-01T00:00:00Z"
+  }
+}
+```
+
+### Get Nonce
+
+**GET** `/v1/session/nonce`
+
+Gets a short-lived nonce for session creation.
+
+```bash
+# Request
+curl http://localhost:3000/v1/session/nonce
+```
+
+# Response
+```json
+{
+  "data": {
+    "nonce": "random-nonce-string",
+    "expiresAt": "2023-01-01T00:05:00Z"
+  }
+}
+```
+
+### Issue Session
+
+**POST** `/v1/session`
+
+Exchanges a signed nonce for a JWT.
+
+```bash
+# Request
+curl -X POST http://localhost:3000/v1/session \
+  -H "Content-Type: application/json" \
+  -d '{
+    "did": "did:plc:abc123",
+    "signature": "signed-nonce-hex"
+  }'
+```
+
+# Response
+```json
+{
+  "data": {
+    "jwt": "jwt-token-string",
+    "expiresAt": "2023-01-01T01:00:00Z"
+  }
+}
+```
+
+### Get JWKS
+
+**GET** `/v1/jwks`
+
+Gets the JSON Web Key Set for public key discovery.
+
+```bash
+# Request
+curl http://localhost:3000/v1/jwks
+```
+
+# Response
+```json
+{
+  "data": {
+    "keys": [
+      {
+        "kid": "key-id-1",
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "public-key-base64url"
+      }
+    ]
+  }
+}
+```
+
+## CDV Service
+
+### Create Record
+
+**POST** `/v1/repo/record`
+
+Creates a new record with schema validation.
+
+```bash
+# Request
+curl -X POST http://localhost:3001/v1/repo/record \
+  -H "Authorization: Bearer jwt-token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "collection": "app.post",
+    "record": {
+      "text": "Hello RegistryAccord!",
+      "createdAt": "2023-01-01T00:00:00Z"
+    }
+  }'
+```
+
+# Response
+```json
+{
+  "data": {
+    "uri": "at://did:plc:abc123/app.post/record-key",
+    "cid": "record-cid"
+  }
+}
+```
+
+### List Records
+
+**GET** `/v1/repo/records`
+
+Lists records with deterministic pagination.
+
+```bash
+# Request
+curl "http://localhost:3001/v1/repo/records?collection=app.post" \
+  -H "Authorization: Bearer jwt-token"
+```
+
+# Response
+```json
+{
+  "data": [
+    {
+      "uri": "at://did:plc:abc123/app.post/record-key",
+      "cid": "record-cid",
+      "value": {
+        "text": "Hello RegistryAccord!",
+        "createdAt": "2023-01-01T00:00:00Z"
+      }
+    }
+  ],
+  "meta": {
+    "cursor": "opaque-cursor-string",
+    "hasMore": false
+  }
+}
+```
+
+### Upload Init
+
+**POST** `/v1/repo/media/upload`
+
+Initializes a media upload.
+
+```bash
+# Request
+curl -X POST http://localhost:3001/v1/repo/media/upload \
+  -H "Authorization: Bearer jwt-token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "mimeType": "image/jpeg",
+    "size": 102400
+  }'
+```
+
+# Response
+```json
+{
+  "data": {
+    "uploadUrl": "https://presigned-url-for-upload",
+    "finalizeUrl": "http://localhost:3001/v1/repo/media/finalize/upload-id"
+  }
+}
+```
+
+### Finalize Upload
+
+**POST** `/v1/repo/media/finalize/[uploadId]`
+
+Finalizes a media upload with checksum verification.
+
+```bash
+# Request
+curl -X POST "http://localhost:3001/v1/repo/media/finalize/upload-id" \
+  -H "Authorization: Bearer jwt-token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "checksum": "sha256-checksum-hex"
+  }'
+```
+
+# Response
+```json
+{
+  "data": {
+    "uri": "at://did:plc:abc123/app.media/media-key",
+    "cid": "media-cid",
+    "mimeType": "image/jpeg",
+    "size": 102400
+  }
+}
+```
+
+## Gateway Service
+
+### Following Feed
+
+**GET** `/v1/feed/following`
+
+Gets the feed of posts from followed users.
+
+```bash
+# Request
+curl "http://localhost:3002/v1/feed/following" \
+  -H "Authorization: Bearer jwt-token"
+```
+
+# Response
+```json
+{
+  "data": [
+    {
+      "uri": "at://did:plc:abc123/app.post/record-key",
+      "cid": "record-cid",
+      "author": {
+        "did": "did:plc:abc123",
+        "handle": "user.handle"
+      },
+      "record": {
+        "text": "Hello RegistryAccord!",
+        "createdAt": "2023-01-01T00:00:00Z"
+      },
+      "indexedAt": "2023-01-01T00:00:00Z"
+    }
+  ],
+  "meta": {
+    "cursor": "opaque-cursor-string",
+    "hasMore": false
+  }
+}
+```
+
+### Author Feed
+
+**GET** `/v1/feed/author`
+
+Gets the feed of posts by a specific author.
+
+```bash
+# Request
+curl "http://localhost:3002/v1/feed/author?author=did:plc:abc123" \
+  -H "Authorization: Bearer jwt-token"
+```
+
+# Response
+```json
+{
+  "data": [
+    {
+      "uri": "at://did:plc:abc123/app.post/record-key",
+      "cid": "record-cid",
+      "record": {
+        "text": "Hello RegistryAccord!",
+        "createdAt": "2023-01-01T00:00:00Z"
+      },
+      "indexedAt": "2023-01-01T00:00:00Z"
+    }
+  ],
+  "meta": {
+    "cursor": "opaque-cursor-string",
+    "hasMore": false
+  }
+}
+```
+
+### Search
+
+**GET** `/v1/search`
+
+Searches for posts, profiles, or content.
+
+```bash
+# Request
+curl "http://localhost:3002/v1/search?q=RegistryAccord" \
+  -H "Authorization: Bearer jwt-token"
+```
+
+# Response
+```json
+{
+  "data": [
+    {
+      "uri": "at://did:plc:abc123/app.post/record-key",
+      "cid": "record-cid",
+      "author": {
+        "did": "did:plc:abc123",
+        "handle": "user.handle"
+      },
+      "record": {
+        "text": "Hello RegistryAccord!",
+        "createdAt": "2023-01-01T00:00:00Z"
+      },
+      "indexedAt": "2023-01-01T00:00:00Z"
+    }
+  ],
+  "meta": {
+    "cursor": "opaque-cursor-string",
+    "hasMore": false
+  }
+}
+```
+
+### Get Profile
+
+**GET** `/v1/profile`
+
+Gets profile information for a DID.
+
+```bash
+# Request
+curl "http://localhost:3002/v1/profile?did=did:plc:abc123" \
+  -H "Authorization: Bearer jwt-token"
+```
+
+# Response
+```json
+{
+  "data": {
+    "did": "did:plc:abc123",
+    "handle": "user.handle",
+    "displayName": "User Name",
+    "description": "User description",
+    "postsCount": 10,
+    "followersCount": 100,
+    "followsCount": 50
+  }
+}
+```
+
+These examples demonstrate the core API endpoints for RegistryAccord services, showing request/response patterns and data structures.

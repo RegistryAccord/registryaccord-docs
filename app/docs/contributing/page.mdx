@@ -1,0 +1,128 @@
+# Contributing
+
+Welcome to the RegistryAccord contributor guide. We appreciate your interest in helping improve the protocol and its ecosystem.
+
+## Repo Map and Contribution Paths
+
+The RegistryAccord project is organized across multiple repositories:
+
+### Protocol and Specifications
+- [registryaccord-specs](https://github.com/RegistryAccord/registryaccord-specs): Canonical protocol definitions and schemas
+
+### Core Services
+- [registryaccord-identity-go](https://github.com/RegistryAccord/registryaccord-identity-go): Identity service implementation
+- [registryaccord-cdv-go](https://github.com/RegistryAccord/registryaccord-cdv-go): Creator Data Vault implementation
+- [registryaccord-gateway-go](https://github.com/RegistryAccord/registryaccord-gateway-go): Gateway service implementation
+
+### Client Libraries
+- [registryaccord-sdk-ts](https://github.com/RegistryAccord/registryaccord-sdk-ts): TypeScript SDK
+- [registryaccord-cli-ts](https://github.com/RegistryAccord/registryaccord-cli-ts): Command-line interface
+
+### Infrastructure and Testing
+- [registryaccord-devstack](https://github.com/RegistryAccord/registryaccord-devstack): Local development environment
+- [registryaccord-conformance](https://github.com/RegistryAccord/registryaccord-conformance): Conformance testing suite
+- [registryaccord-docs](https://github.com/RegistryAccord/registryaccord-docs): This documentation site
+- [registryaccord-terraform-modules](https://github.com/RegistryAccord/registryaccord-terraform-modules): Infrastructure as Code
+
+## Running Devstack + Conformance Locally
+
+### Devstack Setup
+
+```bash
+# Clone the devstack repository
+git clone https://github.com/RegistryAccord/registryaccord-devstack.git
+cd registryaccord-devstack
+
+# Start all services
+make up
+
+# Seed with sample data
+make seed
+
+# Run the demo
+make demo
+```
+
+### Conformance Testing
+
+```bash
+# Clone the conformance repository
+git clone https://github.com/RegistryAccord/registryaccord-conformance.git
+cd registryaccord-conformance
+
+# Install dependencies
+npm install
+
+# Run conformance tests
+make test
+
+# Run specific test suites
+make test-identity
+make test-cdv
+make test-gateway
+```
+
+## Coding Standards
+
+### General Principles
+
+- Follow established patterns in each repository
+- Write clear, self-documenting code
+- Include comprehensive tests for new features
+- Maintain backward compatibility when possible
+- Document public APIs and interfaces
+
+### Language-Specific Guidelines
+
+#### Go Services
+- Follow Go idioms and best practices
+- Use structured logging with correlation IDs
+- Implement proper error wrapping
+- Follow the project's Makefile conventions
+
+#### TypeScript Libraries
+- Use TypeScript strict mode
+- Follow functional programming principles where appropriate
+- Implement proper error handling and retry logic
+- Maintain browser and Node.js compatibility
+
+## PR Expectations
+
+### Before Submitting
+
+1. Ensure all tests pass
+2. Run linting tools and fix issues
+3. Update documentation as needed
+4. Add tests for new functionality
+5. Follow commit message conventions
+
+### Review Process
+
+1. PRs require review from maintainers
+2. CI checks must pass
+3. Code coverage requirements apply
+4. Security scans are performed
+5. ADRs may be required for significant changes
+
+## ADR Flow
+
+For significant architectural decisions:
+
+1. Create an ADR in the appropriate repository
+2. Discuss with maintainers and community
+3. Revise based on feedback
+4. Finalize and implement
+5. Reference in code and documentation
+
+## Good First Issues
+
+New contributors should look for issues tagged with `good first issue` or `help wanted`. These are typically:
+
+- Documentation improvements
+- Bug fixes with clear reproduction steps
+- Test coverage enhancements
+- Small feature additions
+
+Check the issues tab in any repository to find opportunities to contribute.
+
+Thank you for helping make RegistryAccord better for everyone!

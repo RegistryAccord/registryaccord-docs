@@ -2,6 +2,8 @@
 
 This repository contains the source code for the official documentation website for the RegistryAccord protocol, available at https://www.registryaccord.com.
 
+The site can be accessed at: [https://registryaccord.github.io/registryaccord-docs/](https://registryaccord.github.io/registryaccord-docs/docs)
+
 ## Overview
 
 This site serves as the public home for the RegistryAccord project. It hosts our litepaper, architectural decision records (ADRs), and other key project documents.

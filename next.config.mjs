@@ -5,8 +5,8 @@ import nextra from 'nextra'
  */
 const nextConfig = {
   output: 'export',
-  // basePath: '/registryaccord-docs', // Comment out for local testing
-  // assetPrefix: '/registryaccord-docs', // Comment out for local testing
+  basePath: '/registryaccord-docs', // Comment out for local testing
+  assetPrefix: '/registryaccord-docs', // Comment out for local testing
   images: {
     unoptimized: true // mandatory, otherwise won't export
   }

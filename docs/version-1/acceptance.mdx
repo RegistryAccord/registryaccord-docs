@@ -1,0 +1,153 @@
+---
+sidebar_position: 2
+---
+
+# Phase 1 Acceptance Criteria
+
+The exit gates that must be satisfied to complete Phase 1 successfully.
+
+## Quality Gates
+
+### Conformance Testing
+
+**Requirement**: greater than or equal to 95% pass rate on a clean environment
+
+- Identity service: greater than or equal to 95% conformance
+- CDV service: greater than or equal to 95% conformance
+- Gateway service: greater than or equal to 95% conformance
+- Tests run in isolated environment
+- Results reproducible across different setups
+
+**Validation**:
+- Run conformance suite locally
+- Execute in CI/CD pipeline
+- Publish JSON/JUnit/HTML reports
+- Attach artifacts to build
+
+### Demo Reproducibility
+
+**Requirement**: Five-minute demo reproducible from fresh clone
+
+- Clone devstack repository
+- Single command to start services
+- Deterministic seeding with sample data
+- Complete end-to-end workflow demonstration
+- Consistent results across environments
+
+**Validation**:
+- Fresh environment testing
+- Time-to-completion measurement
+- Output consistency verification
+- Documentation alignment
+
+### Artifact Publishing
+
+**Requirement**: Signed artifacts + SBOM on release
+
+- Container images with cryptographic signatures
+- Software Bill of Materials (SBOM) generation
+- Release tagging with semantic versioning
+- Digest verification for published images
+
+**Validation**:
+- Signature verification process
+- SBOM completeness check
+- Release automation testing
+- Digest consistency confirmation
+
+### Documentation Synchronization
+
+**Requirement**: Docs synced to current contracts
+
+- API documentation matches implementation
+- Schema definitions aligned with code
+- Quickstart guides function correctly
+- Troubleshooting guides up to date
+
+**Validation**:
+- Link verification
+- Code snippet testing
+- Process walkthrough validation
+- Community feedback incorporation
+
+## Implementation Completeness
+
+### Protocol Contracts
+
+All protocol invariants must be implemented:
+
+- **Envelopes and Error Taxonomy**: Success `{data, meta?}`; Error `{error:{code,message,details?,correlationId}}`
+- **Auth Requirements**: JWT iss/aud/sub/exp/jti; alg EdDSA/Ed25519; kid present; JWKS at /.well-known/jwks.json
+- **Pagination**: Reverse chronological by indexedAt, tie-break on rkey; opaque cursor encoding; stable under interleaved writes
+- **Media Integrity**: uploadInit → upload → finalize with SHA-256; validate ETag/Content-MD5 when available
+- **Eventing**: NATS JetStream streams for cdv.records.`<collection>`.created and cdv.media.finalized; at-least-once with dedup by correlationId
+
+### Service Requirements
+
+Each service must meet its specific requirements:
+
+**Identity Service**:
+- JWKS exposure with proper cache headers
+- Key rotation with overlap windows
+- Fail-closed on iss/aud/alg/kid mismatches
+- Unit tests for rotation window and nonce replay
+
+**CDV Service**:
+- Schema enforcement at write time
+- Cursor encoding as base64
+- Deterministic errors on bad cursors
+- Checksum verification and size persistence
+- Idempotency via idempotencyKey
+
+**Gateway Service**:
+- Deterministic feed ordering
+- Profile reads with optional counts
+- JWT requirement for personalized feeds
+- Anonymous reads for public queries
+
+### Client Requirements
+
+**SDK**:
+- RAClient with SessionManager
+- Retries on 429/503 errors
+- Opaque cursors
+- Node/browser entry points
+- Examples completing identity→session→post:create→list in ≤20 lines
+
+**CLI**:
+- Five-minute demo script
+- Deterministic exit codes (0,2,3,4,5)
+- JSON mode for CI
+
+### Infrastructure Requirements
+
+**Devstack**:
+- Health-checked startup
+- Deterministic seed (5 DIDs, 50 posts, 10 media, 30 interactions)
+- make up/seed/demo/rotate-keys targets
+
+**Conformance**:
+- Black-box suites for all services
+- Golden fixtures
+- Required PR check with greater than or equal to 95% threshold
+
+## Validation Process
+
+### Pre-Release Checklist
+
+1. [ ] All conformance tests passing greater than or equal to 95%
+2. [ ] Five-minute demo verified from clean clone
+3. [ ] Signed artifacts and SBOMs generated
+4. [ ] Documentation updated and verified
+5. [ ] Release notes completed
+6. [ ] Community announcement prepared
+
+### Post-Release Verification
+
+1. [ ] Artifact signatures verified
+2. [ ] SBOM completeness confirmed
+3. [ ] Demo reproducibility validated
+4. [ ] Documentation links functional
+5. [ ] Community feedback monitored
+
+Meeting these acceptance criteria ensures Phase 1 delivers a solid foundation for the RegistryAccord ecosystem.

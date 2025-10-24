@@ -1,0 +1,243 @@
+---
+sidebar_position: 5
+---
+
+# Schema Catalog
+
+Phase 1 NSID catalog and schema versioning information.
+
+## Core Schemas
+
+### Identity Schemas
+
+#### did:plc:create
+
+**NSID**: `did:plc:create`
+
+Schema for creating a new DID.
+
+```json
+{
+  "type": "object",
+  "required": [],
+  "properties": {}
+}
+```
+
+#### did:plc:resolve
+
+**NSID**: `did:plc:resolve`
+
+Schema for resolving a DID to its DID Document.
+
+```json
+{
+  "type": "object",
+  "required": ["did"],
+  "properties": {
+    "did": {
+      "type": "string",
+      "format": "did"
+    }
+  }
+}
+```
+
+### Session Schemas
+
+#### session:nonce:get
+
+**NSID**: `session:nonce:get`
+
+Schema for getting a session nonce.
+
+```json
+{
+  "type": "object",
+  "required": [],
+  "properties": {}
+}
+```
+
+#### session:create
+
+**NSID**: `session:create`
+
+Schema for creating a session with a signed nonce.
+
+```json
+{
+  "type": "object",
+  "required": ["did", "signature"],
+  "properties": {
+    "did": {
+      "type": "string",
+      "format": "did"
+    },
+    "signature": {
+      "type": "string",
+      "format": "hex"
+    }
+  }
+}
+```
+
+### Record Schemas
+
+#### app.post
+
+**NSID**: `app.post`
+
+Schema for a post record.
+
+```json
+{
+  "type": "object",
+  "required": ["text", "createdAt"],
+  "properties": {
+    "text": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reply": {
+      "type": "object",
+      "required": ["root", "parent"],
+      "properties": {
+        "root": {
+          "type": "string",
+          "format": "at-uri"
+        },
+        "parent": {
+          "type": "string",
+          "format": "at-uri"
+        }
+      }
+    },
+    "embed": {
+      "type": "object",
+      "required": ["uri"],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "at-uri"
+        }
+      }
+    }
+  }
+}
+```
+
+#### app.media
+
+**NSID**: `app.media`
+
+Schema for a media record.
+
+```json
+{
+  "type": "object",
+  "required": ["mimeType", "size", "checksum", "createdAt"],
+  "properties": {
+    "mimeType": {
+      "type": "string",
+      "format": "mime-type"
+    },
+    "size": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "checksum": {
+      "type": "string",
+      "format": "sha256"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
+```
+
+### Feed Schemas
+
+#### feed.item
+
+**NSID**: `feed.item`
+
+Schema for a feed item.
+
+```json
+{
+  "type": "object",
+  "required": ["uri", "cid", "author", "record", "indexedAt"],
+  "properties": {
+    "uri": {
+      "type": "string",
+      "format": "at-uri"
+    },
+    "cid": {
+      "type": "string",
+      "format": "cid"
+    },
+    "author": {
+      "type": "object",
+      "required": ["did"],
+      "properties": {
+        "did": {
+          "type": "string",
+          "format": "did"
+        },
+        "handle": {
+          "type": "string"
+        }
+      }
+    },
+    "record": {
+      "type": "object"
+    },
+    "indexedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
+```
+
+## Schema Versioning
+
+### Version Format
+
+Schema versions follow semantic versioning (SemVer) format: `MAJOR.MINOR.PATCH`
+
+- **MAJOR**: Breaking changes to the schema
+- **MINOR**: Backward-compatible additions
+- **PATCH**: Backward-compatible bug fixes
+
+### Version Resolution
+
+When a client specifies a schema version:
+
+1. Exact match: Use the specified version
+2. Minor mismatch: Use the closest compatible version
+3. Major mismatch: Return an error
+
+### Example Versioning
+
+```
+app.post@1.0.0  # Initial version
+app.post@1.1.0  # Added optional 'reply' field
+app.post@1.1.1  # Fixed validation rules
+app.post@2.0.0  # Breaking change: 'text' field now required
+```
+
+### Version Persistence
+
+- Schema version is stored with each record
+- Services validate against the stored version
+- Migration tools provided for version upgrades
+
+This catalog provides the core schemas for Phase 1 of RegistryAccord, ensuring interoperability and data consistency across implementations.

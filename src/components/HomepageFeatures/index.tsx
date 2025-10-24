@@ -11,32 +11,35 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Creator Ownership',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Retain full ownership of your work, audience, and economics. 
+        RegistryAccord gives creators control over their digital presence 
+        without platform lock-in.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Decentralized Identity',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Built on Decentralized Identifiers (DIDs) for portable identity.
+        Move seamlessly between services without losing your identity,
+        content, or connections.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Open Protocols',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Based on open standards and interoperable protocols.
+        Build interoperable applications without reinventing 
+        identity and content infrastructure.
       </>
     ),
   },

@@ -79,6 +79,8 @@ const config: Config = {
       logo: {
         alt: 'RegistryAccord Logo',
         src: 'img/logo.svg',
+        href: 'https://registryaccord.github.io/registryaccord-docs',
+        target: '_self'
       },
       items: [
         {

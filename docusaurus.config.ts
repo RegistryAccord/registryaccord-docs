@@ -6,7 +6,12 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'RegistryAccord',
-  tagline: 'OS for Social',
+  tagline: `RegistryAccord is an open standard for the next wave of social apps, opening up a $250B+ market long controlled by a few platforms so anyone can build, earn, and compete fairly. 
+  Creators keep control of their profile, followers, content, and earnings—and can take them to any app that supports the standard. 
+  People using these apps get better content and more choice: most experiences can be free because creators earn from ads, with easy options for ad‑free plans when available.​ 
+  Builders can launch faster with starter tools and clear docs—and make money from ads placed by marketers or from subscriptions to their apps, services, and tools. 
+  Brands and marketers get transparent campaigns with live reporting across many apps, reducing algorithm shocks and improving accountability. 
+  By separating identity, content, discovery, and monetization, RegistryAccord replaces walled gardens with open rails so the whole ecosystem can grow together.`,
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future

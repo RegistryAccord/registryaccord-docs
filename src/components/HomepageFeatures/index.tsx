@@ -24,29 +24,29 @@ function Feature({ title, description }: FeatureItem) {
 
 const creatorItems: FeatureItem[] = [
   {
-    title: 'Own Identity, Audience, and Content',
+    title: 'Own your identity and audience',
     description: (
       <ul>
-        <li>Sovereign, portable identity (DIDs) and user-controlled data vaults ensure creators own their relationships and archives.</li>
-        <li>No platform lock-in: move across apps and bring your audience, content, and economics with you.</li>
+        <li>Your profile and followers are portable, so you keep your community wherever you go.</li>
+        <li>No lock‑in: move across apps and bring your content and earnings with you.</li>
       </ul>
     ),
   },
   {
-    title: 'Keep a Larger Share of Revenue',
+    title: 'Earn more, with clarity',
     description: (
       <ul>
-        <li>Transparent, programmable splits across ads, tips, subscriptions, and sales increase take-home earnings.</li>
-        <li>Fiat-first payments with real-time reporting; behind-the-scenes credits ensure fair distribution without user friction.</li>
+        <li>Clear revenue shares across ads, tips, subscriptions, and sales mean a bigger, predictable take‑home.</li>
+        <li>Straightforward reporting so you always see what you earned and why.</li>
       </ul>
     ),
   },
   {
-    title: 'Publish Rich, Interactive Experiences',
+    title: 'Publish richer experiences',
     description: (
       <ul>
-        <li>Composable content atoms (text, video, polls, paywalls, etc.) unlock premium, interactive canvases.</li>
-        <li>Higher-quality content is rewarded as monetization becomes sustainable and predictable.</li>
+        <li>Build interactive posts with text, video, polls, paywalls, and more—no special setup required.</li>
+        <li>Better tools and fair payouts help you invest in higher‑quality content.</li>
       </ul>
     ),
   },
@@ -54,29 +54,38 @@ const creatorItems: FeatureItem[] = [
 
 const consumerItems: FeatureItem[] = [
   {
-    title: 'Familiar, One‑Tap Payments',
+    title: 'Free by default, ad‑free optional',
     description: (
       <ul>
-        <li>Fiat-native purchases, tipping, voting, and premium unlocks—no crypto complexity for everyday use.</li>
-        <li>Consistent UX across many apps that implement the same open protocol.</li>
+        <li>Most content can be free because creators earn from ads.</li>
+        <li>Prefer no ads? Choose an ad‑free plan for a simple fee when available.</li>
       </ul>
     ),
   },
   {
-    title: 'Better Content and More Choice',
+    title: 'Simple, one‑tap actions',
     description: (
       <ul>
-        <li>Creators earn more, reinvest in quality, and ship richer interactive content.</li>
-        <li>Open ecosystem means many builders can create many clients and discovery experiences to choose from.</li>
+        <li>Tip, subscribe, vote, and unlock premium content without extra hoops.</li>
+        <li>Consistent, easy‑to‑use flows across many apps built on the same open standard.</li>
       </ul>
     ),
   },
   {
-    title: 'Privacy and Control',
+    title: 'Better content and more choice',
     description: (
       <ul>
-        <li>Selective data sharing with privacy-preserving analytics and clear consent flows.</li>
-        <li>User-selectable discovery engines reduce opaque algorithmic lock‑in.</li>
+        <li>Creators earn fairly and reinvest in quality, so you get better content.</li>
+        <li>Pick from new interactive content types and many apps with different designs—choose what fits you.</li>
+      </ul>
+    ),
+  },
+  {
+    title: 'Privacy and control',
+    description: (
+      <ul>
+        <li>Share only what you choose, with privacy‑respecting analytics.</li>
+        <li>Choose discovery feeds you trust instead of opaque, one‑size‑fits‑all algorithms.</li>
       </ul>
     ),
   },
@@ -84,29 +93,29 @@ const consumerItems: FeatureItem[] = [
 
 const builderItems: FeatureItem[] = [
   {
-    title: 'Build for the Open World',
+    title: 'Build for an open ecosystem',
     description: (
       <ul>
-        <li>Open, interoperable protocols with typed schemas, conformance tests, and reference fixtures.</li>
-        <li>One‑command local devstack, SDKs, and CLI to ship clients, plugins, and discovery engines fast.</li>
+        <li>Open standards and ready‑to‑use starter tools help you ship apps, plugins, and discovery feeds fast.</li>
+        <li>Portable integrations work across clients that follow the protocol.</li>
       </ul>
     ),
   },
   {
-    title: 'Monetize Your Apps and Plugins',
+    title: 'Monetize your apps and tools',
     description: (
       <ul>
-        <li>Revenue shares, rendering micro‑fees, premium modules, and marketplace distribution.</li>
-        <li>Universal identifiers and vault APIs make integrations portable across clients.</li>
+        <li>Earn from ads placed by marketers inside your app experiences.</li>
+        <li>Offer subscriptions for your apps, services, or creator tools and keep recurring revenue.</li>
       </ul>
     ),
   },
   {
-    title: 'Flexible Data Architecture',
+    title: 'Scale without lock‑in',
     description: (
       <ul>
-        <li>Dual data vaults (cloud + decentralized) with DID auth and universal schemas.</li>
-        <li>Eventing and storage backends designed for scale and interoperability.</li>
+        <li>Flexible data options and event‑driven design make it easier to grow and interoperate.</li>
+        <li>Choose hosting models that fit your stage without rewriting your app.</li>
       </ul>
     ),
   },
@@ -114,20 +123,20 @@ const builderItems: FeatureItem[] = [
 
 const brandItems: FeatureItem[] = [
   {
-    title: 'Transparent Ad Marketplace',
+    title: 'Transparent ad marketplace',
     description: (
       <ul>
-        <li>Fiat-priced auctions with real-time, auditable reporting and clear revenue shares.</li>
-        <li>Native, creator-aligned placements improve signal and outcomes.</li>
+        <li>Run campaigns with clear pricing and live reporting you can trust.</li>
+        <li>Work with creators in native, high‑signal placements that audiences value.</li>
       </ul>
     ),
   },
   {
-    title: 'Governance and Accountability',
+    title: 'Accountability by design',
     description: (
       <ul>
-        <li>Policy-aligned controls and visibility into delivery and spend across open surfaces.</li>
-        <li>Privacy-preserving analytics reduce risk while maintaining campaign fidelity.</li>
+        <li>See where spend goes and how content performs across open, comparable surfaces.</li>
+        <li>Privacy‑respecting measurement reduces risk while keeping results meaningful.</li>
       </ul>
     ),
   },
@@ -135,20 +144,20 @@ const brandItems: FeatureItem[] = [
 
 const marketerItems: FeatureItem[] = [
   {
-    title: 'Trustable, Open Discovery',
+    title: 'Open discovery you can plan on',
     description: (
       <ul>
-        <li>User-selectable algorithms and open surfaces minimize sudden strategy-breaking shifts.</li>
-        <li>Transparent mechanics and reporting make performance comparable across clients.</li>
+        <li>User‑selectable feeds and open mechanics reduce sudden strategy‑breaking shifts.</li>
+        <li>Comparable performance across clients makes testing and scaling simpler.</li>
       </ul>
     ),
   },
   {
-    title: 'Outcomes You Can Plan For',
+    title: 'Lower friction, clearer attribution',
     description: (
       <ul>
-        <li>Fiat-first flows reduce conversion friction; better attribution via consented, privacy-safe analytics.</li>
-        <li>Predictable placements and interoperable inventory across an open network of apps.</li>
+        <li>Simple checkouts reduce drop‑off and improve conversion.</li>
+        <li>Consent‑based analytics provide trustworthy insights without overreach.</li>
       </ul>
     ),
   },
@@ -201,9 +210,6 @@ export default function HomepageFeatures(): ReactNode {
           </Link>
           <Link className="button button--secondary button--lg margin--sm" to="/docs/getting-started/quickstart">
             Build Your First App
-          </Link>
-          <Link className="button button--secondary button--lg margin--sm" to="/docs/getting-started/architecture">
-            Architecture
           </Link>
         </div>
       </div>

@@ -1,111 +1,18 @@
 ---
+title: Quickstart
 sidebar_position: 1
 ---
 
-# Quickstart
-
-Get up and running with RegistryAccord in minutes using our development stack.
+This tutorial takes you from cloning to running the docs site and executing a minimal end‑to‑end flow.
 
 ## Prerequisites
+- Node.js and a package manager.
 
-Before you begin, ensure you have the following installed:
+## Steps
+1. Clone the repo and install dependencies.
+2. Start the docs site at http://localhost:3000.
+3. Run the dev stack and verify health checks.
+4. Create your first identity and publish a sample content record.
 
-- Docker and Docker Compose
-- Node.js (optional, for CLI/SDK examples)
-
-## Quick Start Steps
-
-### 1. Clone and Start Devstack
-
-```bash
-# Clone the devstack repository
-git clone https://github.com/RegistryAccord/registryaccord-devstack.git
-cd registryaccord-devstack
-
-# Start all services
-make up
-```
-
-### 2. Seed Demo Data
-
-```bash
-# Seed with sample data (5 DIDs, 50 posts, 10 media, 30 interactions)
-make seed
-```
-
-### 3. Run the Demo
-
-```bash
-# Run the 5-minute demo script
-make demo
-```
-
-### 4. Validate Health Endpoints
-
-Check that services are running properly:
-
-```bash
-# Identity service health
-curl http://localhost:3000/health
-
-# CDV service health
-curl http://localhost:3001/health
-
-# Gateway service health
-curl http://localhost:3002/health
-```
-
-### 5. CLI Example
-
-```bash
-# Install the CLI
-npm install -g @registryaccord/cli
-
-# Create identity
-ra identity:create
-
-# Get session
-ra session:nonce
-ra session:issue
-
-# Create and list posts
-ra post:create "Hello RegistryAccord!"
-ra post:list
-```
-
-### 6. SDK Example
-
-```javascript
-import { RAClient } from '@registryaccord/sdk';
-
-// Initialize client
-const client = new RAClient({
-  identityBaseUrl: 'http://localhost:3000',
-  cdvBaseUrl: 'http://localhost:3001',
-  gatewayBaseUrl: 'http://localhost:3002'
-});
-
-// Create identity and get session
-const { did } = await client.identity.createDid();
-const { jwt } = await client.identity.issueSession();
-
-// Create and list posts
-await client.cdv.createRecord({
-  collection: 'app.post',
-  record: { text: 'Hello RegistryAccord!' }
-});
-
-const posts = await client.cdv.listRecords({ collection: 'app.post' });
-console.log(posts);
-```
-
-## Expected Outputs
-
-After running the demo, you should see:
-
-- Services running on ports 3000-3002
-- Sample data including posts and media
-- Successful API responses with proper envelope format
-- JWT tokens for authenticated requests
-
-This quickstart provides a foundation for building applications on RegistryAccord.
+## Next
+Move to Core Concepts for architecture and principles.

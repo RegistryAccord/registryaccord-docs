@@ -9,6 +9,15 @@ abhishek:
     linkedin: abhishekkumarphutane
     github: abhishek-regacc
     # newsletter: https://www.greatfrontend.com
+
+registryaccord-team:
+  name: RegistryAccord Team
+  url: https://github.com/RegistryAccord
+  image_url: https://github.com/RegistryAccord.png
+  page: false
+  socials:
+    github: RegistryAccord
+
 # slorber:
 #   name: Sébastien Lorber
 #   title: Docusaurus maintainer

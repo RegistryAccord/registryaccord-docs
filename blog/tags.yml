@@ -1,9 +1,19 @@
-syntax:
-  label: Syntax
-  permalink: /syntax
-  description: Blog Syntax
+announcement:
+  label: Announcement
+  permalink: /announcement
+  description: Announcement
 
-tips:
-  label: Tips
-  permalink: /tips
-  description: Tips
+roadmap:
+  label: Roadmap
+  permalink: /roadmap
+  description: Roadmap
+
+architecture:
+  label: Architecture
+  permalink: /architecture
+  description: Architecture
+
+contributing:
+  label: Contributing
+  permalink: /contributing
+  description: Contributing

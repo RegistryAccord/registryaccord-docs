@@ -1,0 +1,9 @@
+{
+  "label": "Core Concepts",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "Core Concepts",
+    "description": "Concepts and mental models that underpin RA."
+  }
+}

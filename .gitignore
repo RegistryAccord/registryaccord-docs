@@ -16,7 +16,8 @@ openapi/specs/
 
 # Auto-generated API documentation
 # These are generated from OpenAPI specs
-docs/api/
+docs/api/*
+!docs/api/index.mdx
 
 # Misc
 .DS_Store

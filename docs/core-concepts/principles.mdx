@@ -1,0 +1,200 @@
+---
+sidebar_position: 2
+title: Design Principles
+description: Core values and principles guiding RegistryAccord development
+---
+
+# Design Principles
+
+These principles guide all design decisions in the RegistryAccord protocol.
+
+## 1. Creator Ownership
+
+**Creators own their work, their audience, and their economics.**
+
+### What This Means:
+- **Portable Identity:** Your identity works across all RegistryAccord apps
+- **Content Control:** You decide licensing, versioning, and distribution
+- **Economic Control:** You set prices, splits, and payment terms
+- **Data Rights:** Export anytime, delete within 30 days
+
+### How It's Enforced:
+- DIDs (Decentralized Identifiers) for portable identity
+- JSON-LD metadata with explicit licensing
+- Programmable revenue splits in the Payments layer
+- GDPR-compliant right to erasure APIs
+
+---
+
+## 2. Privacy by Design
+
+**Privacy isn't optional—it's fundamental.**
+
+### What This Means:
+- **Consent First:** No data collection without explicit, granular consent
+- **Purpose Limitation:** Data used only for consented purposes
+- **Minimal Collection:** Collect only what's needed
+- **User Control:** Withdraw consent anytime, delete in 30 days
+
+### How It's Enforced:
+- Granular consent management at Identity layer
+- Purpose tags on all event schemas
+- Differential privacy for analytics aggregates
+- Privacy budget enforcement to prevent re-identification
+
+---
+
+## 3. Interoperability Over Lock-In
+
+**Open standards beat proprietary formats.**
+
+### What This Means:
+- **Standard Formats:** JSON-LD, OpenAPI, OAuth2, not custom protocols
+- **Multiple Implementations:** Any conformant service can participate
+- **No Vendor Lock-In:** Switch providers without losing data
+- **Network Effects for All:** Ecosystem growth benefits everyone
+
+### How It's Enforced:
+- All APIs specified in OpenAPI 3.1
+- Conformance testing for implementations
+- Standard content formats (JSON-LD, Schema.org)
+- OAuth2 scopes for interoperability
+
+---
+
+## 4. Transparency & Fairness
+
+**Algorithms should be auditable, not black boxes.**
+
+### What This Means:
+- **Open Algorithm Parameters:** Ranking signals are documented
+- **Independent Audits:** Third-party fairness audits required
+- **Public Scorecards:** Bias metrics published for all rankers
+- **Dispute Process:** Users can challenge unfair outcomes
+
+### How It's Enforced:
+- Fairness scorecard APIs (Feed Generator)
+- Audit report schemas and validation
+- Dispute submission and resolution workflows
+- Public transparency requirements for certified rankers
+
+---
+
+## 5. Security First
+
+**Zero Trust Architecture is non-negotiable.**
+
+### What This Means:
+- **Phishing-Resistant Auth:** WebAuthn/Passkey primary, passwords optional
+- **Least Privilege:** Fine-grained OAuth2 scopes (60+)
+- **Encrypted Transport:** TLS 1.3 everywhere, mTLS for service-to-service
+- **Audit Everything:** Comprehensive audit logs for compliance
+
+### How It's Enforced:
+- WebAuthn as primary authentication method
+- OAuth2 scope system with RBAC/ABAC
+- mTLS for all inter-service communication
+- Audit event APIs and tamper-evident logs
+
+---
+
+## 6. Composability
+
+**Simple services, complex systems.**
+
+### What This Means:
+- **Single Responsibility:** Each service does one thing well
+- **Loose Coupling:** Services interact via well-defined APIs
+- **Mix and Match:** Use official services or roll your own
+- **Progressive Enhancement:** Start simple, add complexity as needed
+
+### How It's Enforced:
+- Seven independent services with clear boundaries
+- Standard API contracts (OpenAPI)
+- No hidden dependencies between services
+- Optional features (e.g., fairness audits are opt-in)
+
+---
+
+## 7. Developer Experience
+
+**APIs should be intuitive and consistent.**
+
+### What This Means:
+- **Consistent Patterns:** Pagination, filtering, errors work the same everywhere
+- **Self-Documenting:** OpenAPI specs, inline examples, generated SDKs
+- **Predictable Errors:** RFC 7807 problem details, not random strings
+- **Versioning:** Clear deprecation timeline (90 days notice)
+
+### How It's Enforced:
+- API design standards (Section 4 of specs)
+- Automated OpenAPI validation (Spectral)
+- Example workflows for all endpoints
+- Deprecation header standards (RFC 8594)
+
+---
+
+## 8. Sustainability
+
+**The protocol must be economically viable long-term.**
+
+### What This Means:
+- **Fair Marketplace Fees:** ~15% platform take (adjustable)
+- **Transparent Economics:** Fees published, not hidden
+- **Value Alignment:** Fees fund audits, governance, infrastructure
+- **Foundation Model:** Long-term neutral stewardship
+
+### How It's Enforced:
+- Clear fee structure in payment APIs
+- Audit fund allocation (1-3% of platform revenue)
+- Planned transition to neutral foundation
+- Community governance (RFC process)
+
+---
+
+## Trade-Offs We Accept
+
+### Complexity for Flexibility
+RegistryAccord has seven services and 114 endpoints. That's more complex than a monolithic platform, but it enables:
+- Builders to use only what they need
+- Competition at every layer
+- Innovation without permission
+
+### Specification Overhead
+Writing OpenAPI specs takes time. But it enables:
+- Auto-generated SDKs
+- Conformance testing
+- Clear contracts
+- Multi-language support
+
+### Governance Overhead
+RFCs and TSC votes slow down changes. But they ensure:
+- Community input
+- Careful consideration
+- Backward compatibility
+- Long-term stability
+
+---
+
+## Anti-Principles
+
+**What RegistryAccord is NOT:**
+
+❌ **Move Fast and Break Things** - We value stability and compatibility  
+❌ **Walled Garden** - Open standards, not proprietary lock-in  
+❌ **Black Box Algorithms** - Transparency and auditability required  
+❌ **Data Exploitation** - Privacy by design, not surveillance capitalism  
+❌ **Winner-Take-All** - Ecosystem benefits shared among participants  
+
+---
+
+## Living Principles
+
+These principles evolve with the protocol through the **RFC process**:
+
+1. Community member proposes principle change
+2. 14-day public comment period
+3. TSC votes (simple majority)
+4. Documentation updated
+
+**Propose changes:** https://github.com/RegistryAccord/registryaccord-specs/discussions

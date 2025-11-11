@@ -1,0 +1,353 @@
+---
+sidebar_position: 3
+title: Protocol vs Implementation
+description: Understanding RegistryAccord as an open protocol
+---
+
+# Protocol vs Implementation
+
+**RegistryAccord** is an **open protocol specification**, not a single implementation. This distinction is critical to understanding the ecosystem.
+
+## What is RegistryAccord?
+
+**RegistryAccord is the specification, not the implementation.**
+
+### RegistryAccord Defines:
+- ✅ API contracts (OpenAPI 3.1 specifications)
+- ✅ Data models (JSON schemas)
+- ✅ Authentication patterns (OAuth2, WebAuthn)
+- ✅ Event schemas (lifecycle events)
+- ✅ Conformance criteria (what makes a valid implementation)
+
+### RegistryAccord Does NOT Define:
+- ❌ How to implement the services (Node.js? Go? Rust? Your choice)
+- ❌ Where to host (AWS? GCP? On-prem? Your choice)
+- ❌ Which database to use (Postgres? MySQL? Mongo? Your choice)
+- ❌ UI/UX (design your own apps)
+
+**Think of RegistryAccord like HTTP or Email:**
+- HTTP is a protocol, Apache/Nginx are implementations
+- SMTP is a protocol, Gmail/Outlook are implementations
+- **RegistryAccord is a protocol, many implementations are possible**
+
+---
+
+## Protocol vs Implementation
+
+### The Protocol (RegistryAccord)
+
+**What it provides:**
+- Complete API specifications for 7 services
+- 114 documented endpoints
+- Data schemas and models
+- Authentication and authorization patterns
+- Standards compliance requirements
+
+**Who maintains it:**
+- Open source community
+- Technical Steering Committee (TSC)
+- RFC-based governance process
+
+**Who can use it:**
+- Anyone (Apache 2.0 licensed)
+- Build your own implementation
+- Free to use, modify, distribute
+
+### Implementations (Multiple Possible)
+
+**What they provide:**
+- Running services that implement the specs
+- Hosted or self-hosted deployments
+- SDKs and client libraries
+- User interfaces and apps
+- Commercial features and support
+
+**Who builds them:**
+- Technology companies
+- Open source projects
+- Individual developers
+- Enterprise IT teams
+
+---
+
+## The Relationship
+
+```text
+┌─────────────────────────────────────────────────────┐
+│ RegistryAccord (Protocol)                           │
+│                                                     │
+│ - OpenAPI specifications (7 services)               │
+│ - JSON schemas (50+ models)                         │
+│ - OAuth2/OIDC flows                                 │
+│ - Standards compliance (IAB, W3C, etc.)             │
+└──────────────┬──────────────────────────────────────┘
+│ Can be implemented by anyone                        │
+▼  
+┌─────────────────────────────────────────────────────┐
+│ Implementation Provider #1                          │
+│                                                     │
+│ - Hosted RA services                                │
+│ - Commercial SaaS offering                          │
+│ - Enterprise features & SLAs                        │
+│ - Managed infrastructure                            │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│ Implementation Provider #2                          │
+│                                                     │
+│ - Self-hosted services                              │
+│ - Community-driven                                  │
+│ - Open source tooling                               │
+│ - Custom deployments                                │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│ Your Own Implementation                             │
+│                                                     │
+│ - Built to your requirements                        │
+│ - Full control and customization                    │
+│ - Your infrastructure                               │
+│ - Your business model                               │
+└─────────────────────────────────────────────────────┘
+
+```
+
+---
+
+## Key Differences
+
+| Aspect | Protocol (RegistryAccord) | Implementations |
+|--------|---------------------------|----------------|
+| **What it is** | Specification | Working services |
+| **Governance** | Community (TSC, RFC) | Implementation-specific |
+| **License** | Apache 2.0 | Varies by provider |
+| **Cost** | Free to use | Varies by provider |
+| **Implementation** | Specified, not built | Actual running code |
+| **Support** | Community forums | Provider-dependent |
+| **Updates** | RFC process | Provider schedule |
+
+---
+
+## Why This Matters
+
+### For Builders
+
+You have **multiple options**:
+
+**1. Use a Hosted Provider** - Fastest path to market
+- Managed services, no ops burden
+- Professional SDKs and support
+- Enterprise features available
+- Pay for what you use
+
+**2. Self-Host** - Maximum control
+- Implement specs yourself
+- Run on your infrastructure
+- Customize as needed
+- No vendor fees
+
+**3. Mix & Match** - Hybrid approach
+- Use Provider A for Identity
+- Self-host Content services
+- Use Provider B for Payments
+- Swap providers without breaking your app
+
+### For Creators
+
+Your **data is portable**:
+- Identity (DID) works with any RA provider
+- Content published once, available everywhere
+- Audience follows you across platforms
+- You're not locked into any single provider
+
+### For the Ecosystem
+
+**Competition drives quality**:
+- Multiple providers compete on features/price
+- Innovation happens at every layer
+- Network effects benefit everyone
+- No single point of failure
+
+---
+
+## Conformance
+
+### How Do You Know a Service is RA-Compliant?
+
+**Conformance Testing** (coming soon):
+- Automated test harness validates implementations
+- Services earn conformance badges
+- Public dashboard shows compliance status
+- Non-compliant services can't claim RA compatibility
+
+**What Conformance Means:**
+- ✅ API contracts match OpenAPI specs
+- ✅ Authentication flows work correctly
+- ✅ Data models are compatible
+- ✅ Events follow schema definitions
+
+---
+
+## Implementation Models
+
+### Commercial SaaS
+**Characteristics:**
+- Hosted services with SLAs
+- Professional support
+- Enterprise features
+- Usage-based pricing
+- Managed updates
+
+**Examples:**
+- Managed identity services
+- Hosted content registries
+- Payment processing platforms
+
+### Open Source / Community
+**Characteristics:**
+- Self-hosted deployments
+- Community support
+- Customizable features
+- Free to use
+- DIY updates
+
+**Examples:**
+- Community-maintained services
+- Open source reference implementations
+- Educational projects
+
+### Enterprise Self-Hosted
+**Characteristics:**
+- Full control over deployment
+- Custom integrations
+- On-premise or private cloud
+- Internal support teams
+- Custom SLAs
+
+**Examples:**
+- Large enterprises with compliance requirements
+- Organizations with data sovereignty needs
+- Custom business logic requirements
+
+---
+
+## Future: Foundation Model
+
+**Current Phase:** Community-maintained specifications  
+**Future Phase:** Neutral foundation governance  
+
+### Planned Foundation Will:
+- Own the RegistryAccord trademark
+- Govern spec evolution (TSC, RFC process)
+- Run conformance testing program
+- Accept corporate members
+- Fund ecosystem development
+- Ensure long-term neutrality
+
+### Implementation Providers Will:
+- Build conformant services
+- Compete on features and pricing
+- Contribute to foundation
+- Pay for conformance certification
+- Participate in governance
+
+**Timeline:** Foundation formation when ecosystem reaches critical mass (post-launch).
+
+---
+
+## Analogy: Email
+
+This relationship mirrors email:
+
+| Email Ecosystem | RegistryAccord Ecosystem |
+|----------------|--------------------------|
+| **SMTP Protocol** | RA Specification |
+| **Gmail** | Hosted Provider #1 |
+| **Outlook** | Hosted Provider #2 |
+| **Self-hosted mail server** | Self-hosted RA services |
+| **Standards body (IETF)** | RA Foundation (future) |
+
+Just like you can send email from Gmail to Outlook, creators and builders can move between RA implementations without friction.
+
+---
+
+## FAQ
+
+### Can I build my own RA implementation?
+
+**Yes!** That's the entire point. RegistryAccord is Apache 2.0 licensed and anyone can implement it.
+
+### Do I need permission to build an RA service?
+
+**No.** The specs are open. You can build and operate RA-compliant services without asking anyone.
+
+### Will different implementations work together?
+
+**Yes**, if they're conformant. That's guaranteed by the specifications and enforced by conformance testing.
+
+### Who decides changes to the protocol?
+
+**The community**, through the RFC process and TSC governance. No single company controls it.
+
+### Can I mix providers?
+
+**Yes!** Use different providers for different services. The specs ensure interoperability.
+
+### What if a provider shuts down?
+
+Your data is portable. Export your content and move to another provider or self-host.
+
+### How do I know which providers to trust?
+
+Look for conformance certification and community reputation. The foundation (when formed) will help with this.
+
+---
+
+## Building Your Own Implementation
+
+### Getting Started
+
+1. **Review the Specifications**
+   - Study the OpenAPI specs
+   - Understand the data models
+   - Review authentication patterns
+
+2. **Choose Your Stack**
+   - Pick your programming language
+   - Select your database
+   - Choose hosting environment
+
+3. **Implement Core Services**
+   - Start with Identity
+   - Add Content Registry
+   - Expand to other services
+
+4. **Test Conformance**
+   - Use conformance test suite (coming soon)
+   - Validate against specs
+   - Earn certification
+
+### Resources for Implementers
+
+- **Specs Repository**: https://github.com/RegistryAccord/registryaccord-specs
+- **Example Workflows**: Reference implementations in progress
+- **GitHub Discussions**: https://github.com/RegistryAccord/registryaccord-specs/discussions
+- **Conformance Tests**: Coming soon
+
+---
+
+## Summary
+
+**RegistryAccord is:**
+- ✅ An open protocol specification
+- ✅ Apache 2.0 licensed
+- ✅ Community-governed
+- ✅ Implementation-agnostic
+
+**RegistryAccord is NOT:**
+- ❌ A single service or platform
+- ❌ Controlled by one company
+- ❌ Vendor lock-in
+- ❌ A walled garden
+
+The goal is a **thriving ecosystem** where multiple implementations compete, creators have choice and portability, and innovation happens at every layer.

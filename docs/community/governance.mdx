@@ -1,0 +1,119 @@
+---
+id: governance
+title: Governance
+sidebar_position: 2
+description: How RegistryAccord is governed — roles, decision-making, RFCs, and releases. Canonical policy lives in the specs repo.
+---
+
+# Governance
+
+This page summarizes how RegistryAccord (RA) is governed and how decisions are made. To avoid duplication and drift, the canonical governance policy lives in the specs repo and should be treated as the single source of truth.
+
+:::tip Single source of truth
+Canonical governance:  
+https://github.com/RegistryAccord/registryaccord-specs/blob/main/GOVERNANCE.md
+
+This page is a high‑level overview. Each RA repo should link to the canonical file and include only repo‑specific notes (e.g., release owners).
+:::
+
+## Principles
+
+- Neutral and protocol‑first: no private protocol features; all changes go through public processes.
+- Open participation: contributors can propose changes via issues and RFCs; maintainers facilitate, not gatekeep.
+- Transparency: decisions, timelines, and deprecations are documented and visible to the community.
+- Stability: additive evolution is preferred; breaking changes require migration windows and fixtures.
+
+## Roles
+
+- Contributors  
+  Anyone submitting issues, RFCs, code, or docs. Contributors follow the Code of Conduct and contribution guidelines.
+
+- Maintainers  
+  Individuals with merge rights in one or more repos. They review proposals, ensure specification quality, and keep releases healthy.
+
+- Technical Steering Committee (TSC)  
+  A small group of experienced maintainers that steers roadmap priorities, adjudicates contentious changes, and approves breaking changes.
+
+- Working Groups (optional)  
+  Time‑bounded groups focused on specific areas (e.g., Identity, Registry, Storage, Payments, Feeds, Analytics, Conformance).
+
+## Decision process
+
+- Trivial changes (docs, fixes)  
+  Handled via standard PR review by maintainers.
+
+- Non‑trivial changes (features, semantics)  
+  Require an RFC. The RFC must include design, APIs/schemas, examples, migration impact, security/privacy notes, and conformance updates.
+
+- Controversial or breaking changes  
+  Discussed in public, require TSC approval, clear timelines, and migration guides.
+
+- Lazy consensus  
+  If no substantial objections arise within a reasonable window, maintainers may proceed.
+
+## RFC workflow
+
+1. Open an issue to discuss the problem and scope.  
+2. Draft an RFC with:
+   - Motivation and requirements
+   - API/Schema diffs (OpenAPI, JSON/JSON‑LD)
+   - Error semantics and versioning
+   - Security, privacy, and compliance considerations
+   - Migration and deprecation plan
+   - Conformance/test updates and rollout steps
+3. Request reviews from relevant maintainers/working groups.  
+4. Iterate until accepted or rejected with rationale.  
+5. Track implementation as linked issues/PRs and update conformance/tests alongside code.
+
+## Versioning and deprecations
+
+- Explicit versions (e.g., REST v1, schema v1.x).  
+- Additive‑first; deprecations provide timelines and fixtures.  
+- Release notes include upgrade paths and risk callouts.
+
+## Releases
+
+- Release owners per repo announce freezes, tags, and artifacts.  
+- CI must pass linters, unit tests, contract tests, and (where applicable) conformance suites.  
+- Security and migration notes are included in release notes.
+
+## Conformance and compatibility
+
+- Public conformance harness validates behavior and wire contracts.  
+- Compatibility badges signal supported protocol versions per implementation or provider.  
+- Conformance evolves with specs; versioned badges reflect the target version.
+
+## Security and conduct
+
+- Responsible disclosure via security contacts (do not open public issues for vulnerabilities).  
+- Code of Conduct applies across all repos and community spaces.  
+- Repeat violations can lead to moderation by maintainers or the TSC.
+
+## Conflict resolution
+
+- Start with constructive discussion in issues/RFCs.  
+- Escalate to maintainers of the affected repos.  
+- If unresolved, the TSC mediates and issues a final decision with rationale.
+
+## Repo notes (template)
+
+Each repo may document:
+- Release owners and rotation
+- CI status checks and required gates
+- Supported versions and deprecation windows
+- Contact channels for area‑specific questions
+
+## FAQ
+
+- Why keep governance in the specs repo?  
+  It’s the natural canonical home for protocol‑level policy; keeping one copy avoids ambiguity across many repos.
+
+- Can anyone join the TSC?  
+  Membership is earned via sustained, high‑quality contributions and is reviewed periodically; conflicts of interest are disclosed.
+
+- How do breaking changes ship safely?  
+  Through RFCs with migration plans, explicit versioning, deprecation windows, and updated conformance fixtures.
+
+## Contact
+
+Questions about governance or proposals? Email: info@registryaccord.com

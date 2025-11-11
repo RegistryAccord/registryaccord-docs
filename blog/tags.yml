@@ -1,0 +1,19 @@
+announcement:
+  label: Announcement
+  permalink: /announcement
+  description: Announcement
+
+roadmap:
+  label: Roadmap
+  permalink: /roadmap
+  description: Roadmap
+
+architecture:
+  label: Architecture
+  permalink: /architecture
+  description: Architecture
+
+contributing:
+  label: Contributing
+  permalink: /contributing
+  description: Contributing

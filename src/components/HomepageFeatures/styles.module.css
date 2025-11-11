@@ -1,0 +1,119 @@
+.features {
+  padding: 4rem 0;
+  background: var(--ifm-background-color);
+}
+
+.tabsContainer {
+  margin-bottom: 3rem;
+}
+
+/* Feature Cards - AT Protocol Inspired */
+.featureCard {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  height: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .featureCard {
+  background: rgba(15, 31, 51, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .featureCard:hover {
+  background: rgba(15, 31, 51, 0.8);
+  border-color: var(--ifm-color-primary);
+}
+
+.featureTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-content);
+}
+
+.featureContent {
+  color: var(--ifm-color-content-secondary);
+  line-height: 1.7;
+}
+
+.featureContent ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.featureContent li {
+  margin-bottom: 0.75rem;
+}
+
+.featureContent li:last-child {
+  margin-bottom: 0;
+}
+
+/* CTA Buttons */
+.ctaContainer {
+  margin-top: 3rem;
+  text-align: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaContainer .button {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.ctaContainer .button--primary {
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+}
+
+.ctaContainer .button--primary:hover {
+  background: var(--ifm-color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.ctaContainer .button--secondary {
+  background: transparent;
+  border: 2px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.ctaContainer .button--secondary:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features {
+    padding: 2rem 0;
+  }
+
+  .ctaContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ctaContainer .button {
+    width: 100%;
+    max-width: 300px;
+  }
+}

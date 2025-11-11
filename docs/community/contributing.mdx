@@ -1,0 +1,148 @@
+---
+id: contributing
+title: Contributing
+sidebar_position: 1
+description: How to contribute to RegistryAccord — issues, RFCs, code, docs, conformance, and governance.
+---
+
+# Contributing
+
+Thanks for your interest in contributing to RegistryAccord (RA)! This page explains how to propose changes, file issues, submit code/docs, and participate in governance. There are two builder paths: contribute to the RA protocol and tooling, or build apps/services on top of RA. Both benefit from a clear, open process.
+
+:::tip Single source of truth
+To avoid drift, the canonical contribution guide lives in the specs repo:
+https://github.com/RegistryAccord/registryaccord-specs/blob/main/CONTRIBUTING.md
+
+This page is a thin overview. Each RA repo should point to the canonical document and include only repo‑specific addenda (e.g., language toolchain, make targets).
+:::
+
+## Ways to contribute
+
+- Specs and schemas: OpenAPI 3.1, JSON/JSON‑LD examples, version headers, error envelopes.
+- Reference services: Identity, Content Registry, Storage Gateway, Payments, Feeds, Revenue, Analytics.
+- SDKs: TypeScript/JS, Python, Go — typed clients, pagination, retries, idempotency, errors.
+- Conformance: test harness, fixtures, compatibility badges, CI integration.
+- Infra: docker‑compose, Helm/Terraform, local/dev and staging blueprints.
+- Docs: quickstarts, examples, runbooks, diagrams, migration guides.
+
+## Getting started
+
+1. Read the Architecture, Installation, and Quickstart pages to run the local stack.
+2. Browse open issues labeled good first issue or help wanted.
+3. For significant changes, start an RFC before coding to align early.
+4. Reach out if you want to coordinate on an area: info@registryaccord.com.
+
+## Issues
+
+- Bug report: expected vs actual, repro steps, logs, versions, minimal payloads.
+- Feature request: problem statement, target users, proposed API changes, alternatives.
+- Docs: missing sections, unclear examples, diagrams, quickstarts.
+- Security: do not open public issues; use responsible disclosure (see Security below).
+
+Labels commonly used: type/bug, type/feature, type/docs, good first issue, help wanted, area/*, svc/*, sdk/*, spec.
+
+## RFC process (for non‑trivial changes)
+
+- Start with a concise proposal:
+  - Problem statement and motivation.
+  - Design overview with diagrams as needed.
+  - API/Schema diffs (OpenAPI/JSON examples).
+  - Semantics and error handling.
+  - Migration and deprecation impact.
+  - Security, privacy, and compliance notes.
+  - Alternatives considered.
+  - Rollout plan and conformance updates.
+- Expect at least one maintainer review and community feedback before implementation.
+
+## Development workflow
+
+- Fork and branch: feature/short-slug or fix/short-slug.
+- Commit style: Conventional Commits recommended (e.g., feat(identity): add org membership APIs).
+- Tests:
+  - Unit tests for business logic.
+  - Contract tests against OpenAPI examples.
+  - Conformance tests for cross‑service behavior.
+- Lint/format:
+  - Go: go fmt, golangci-lint.
+  - TS/JS: eslint, prettier, typecheck.
+  - Python: ruff/flake8, black, mypy.
+- Keep PRs small and focused; include docs and examples alongside code.
+
+## PR checklist
+
+- [ ] Linked issue or RFC.
+- [ ] API/Schema updated (OpenAPI/JSON) with examples.
+- [ ] Tests added/updated (unit, contract, conformance where applicable).
+- [ ] Docs updated (quickstart, examples, runbooks, diagrams as needed).
+- [ ] Lint/format pass; CI green.
+- [ ] Backwards compatibility reviewed; deprecation notes included if needed.
+- [ ] Changelog entry (if repo maintains one).
+
+## Reviews and merging
+
+- At least one maintainer approval.
+- All required checks must pass (lint, unit, contract, conformance).
+- Squash merge recommended for clarity; preserve meaningful commit messages.
+
+## Versioning and deprecations
+
+- Additive‑first: prefer adding fields/endpoints over changing/removing.
+- Explicit versions in REST paths and schemas (e.g., v1).
+- Deprecation windows include timelines, migration steps, and fixtures.
+- Conformance updated in lockstep with spec changes.
+
+## Security
+
+- Responsible disclosure: email security reports to info@registryaccord.com.
+- Do not file public issues for vulnerabilities.
+- Include affected components, versions, PoC, and impact.
+
+## Code of Conduct
+
+- Be respectful and constructive. Harassment and disruptive behavior are not tolerated.
+- See CODE_OF_CONDUCT in each repo; violations can lead to restrictions on participation.
+
+## Licensing and IP
+
+- Apache‑2.0 for RA repos; contributions are accepted under the same license.
+- Preserve NOTICE and attribution where present.
+- Contributor terms:
+  - DCO (Signed‑off‑by) or CLA, as specified by each repo.
+  - Ensure you have rights to contribute the code/content you submit.
+
+## Repo‑specific addenda (template)
+
+Each repo may append details like:
+
+- Language/runtime versions and toolchains.
+- Make targets or npm/pip tasks (e.g., make test, make lint, make conformance).
+- Local environment variables and service ports.
+- Release process (tags, artifacts, registries).
+
+## For app/service builders
+
+- Build against public specs and SDKs to keep portability.
+- Use the conformance harness to validate before release; publish compatibility badges.
+- Plan for upgrades by tracking deprecations and version headers.
+
+## For maintainers
+
+- Triage regularly; label clearly; avoid issue stagnation.
+- Demand artifacts in proposals (spec diffs, examples, tests) to reduce ambiguity.
+- Prefer small, iterative PRs; guide contributors to split when necessary.
+- Communicate timelines for breaking changes and provide migration aids.
+
+## FAQ
+
+- Should this page duplicate CONTRIBUTING.md?  
+  No. Keep a single canonical CONTRIBUTING.md in the specs repo. Each repo links to it and adds only repo‑specific details. This docs page remains a high‑level overview.
+
+- Can I contribute a feature that’s “commercial” in nature?  
+  Yes, as long as it fits public extension points or goes through RFC if it affects protocol contracts. No private protocol features.
+
+- How do I get help or mentorship?  
+  Open a draft PR early and tag maintainers, or email info@registryaccord.com with your area of interest.
+
+## Contact
+
+Have questions or want to start contributing? Email: info@registryaccord.com

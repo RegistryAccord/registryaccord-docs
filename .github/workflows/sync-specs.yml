@@ -1,0 +1,105 @@
+name: Sync OpenAPI Specs
+
+on:
+  workflow_dispatch: # Manual trigger only
+  repository_dispatch: # Triggered from specs repo
+    types: [specs-updated]
+
+jobs:
+  sync-specs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout specs repo
+        uses: actions/checkout@v4
+        with:
+          repository: RegistryAccord/registryaccord-specs
+          path: specs-temp
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy OpenAPI specs
+        run: |
+          echo "📋 Copying OpenAPI specs..."
+
+          # Remove old specs
+          rm -rf openapi/specs
+
+          # Copy new specs
+          mkdir -p openapi/specs
+          cp -r specs-temp/openapi/* openapi/specs/
+
+          echo "✅ Specs copied successfully"
+
+          # List what was copied
+          echo "📁 Copied specs:"
+          find openapi/specs -name "*.yaml" -type f
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Clean old API docs
+        run: |
+          rm -rf docs/api
+          echo "🧹 Cleaned old API docs"
+
+      - name: Generate API docs
+        run: |
+          echo "🔨 Generating API docs..."
+          npm run gen-all
+          echo "✅ API docs generated"
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "ℹ️  No changes detected"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✅ Changes detected"
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add openapi docs/api
+          git commit -m "chore: sync OpenAPI specs from registryaccord-specs
+
+          - Updated OpenAPI specifications
+          - Regenerated API documentation
+          - Triggered by: ${{ github.event_name }}
+          - Synced at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+
+          git push
+
+      - name: Cleanup
+        run: rm -rf specs-temp
+
+      - name: Summary
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          echo "### ✅ Sync Completed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Specs synced and API docs regenerated." >> $GITHUB_STEP_SUMMARY
+          echo "Deployment will trigger automatically." >> $GITHUB_STEP_SUMMARY
+
+      - name: Summary - No Changes
+        if: steps.changes.outputs.has_changes == 'false'
+        run: |
+          echo "### ℹ️ No Changes" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Specs are already up to date." >> $GITHUB_STEP_SUMMARY

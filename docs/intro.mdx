@@ -1,0 +1,307 @@
+---
+sidebar_position: 1
+title: Introduction
+description: Welcome to RegistryAccord - an open foundation for digital content
+---
+
+# Welcome to RegistryAccord
+
+**RegistryAccord** is an open standard that enables creators to own their work, their audience, and the economics of their business across any app that supports the protocol.
+
+## What is RegistryAccord?
+
+RegistryAccord opens up a $250B+ market long controlled by a few platforms so anyone can build, earn, and compete fairly.
+
+### For Creators
+
+- **Own Your Identity**: Keep control of your profile, followers, and content
+- **Portable Everything**: Take your audience and content to any RegistryAccord app
+- **Direct Earnings**: Earn from ads, subscriptions, and tips without intermediaries
+- **Data Control**: Export your data anytime, delete on demand
+
+### For Builders & Developers
+
+- **Launch Faster**: Starter tools and clear documentation
+- **Earn Revenue**: Make money from ads or app subscriptions
+- **Open Standards**: Build on proven, well-documented APIs
+- **Ecosystem Benefits**: Tap into the network effect
+
+### For Brands & Marketers
+
+- **Transparent Campaigns**: Live reporting across many apps
+- **Better Accountability**: Reduce algorithm shocks
+- **Brand Safety**: IAB-compliant content taxonomy
+- **Fraud Protection**: Built-in IVT detection
+
+## Core Architecture
+
+RegistryAccord separates four critical layers:
+
+1. **Identity Layer** - WebAuthn/Passkey authentication, OAuth2/OIDC, consent management
+2. **Content Layer** - Versioned, licensed content with provenance tracking
+3. **Discovery Layer** - Algorithmic feeds with fairness audits
+4. **Monetization Layer** - Payments, revenue splits, ads, subscriptions
+
+By separating these concerns, RegistryAccord replaces walled gardens with open rails.
+
+## Key Features
+
+### 🔐 Privacy by Design
+- Granular consent with 24-hour withdrawal SLA
+- Differential privacy for analytics
+- Right to erasure (30-day SLA)
+- Purpose limitation enforcement
+
+### 🛡️ Security First
+- WebAuthn/Passkey as primary auth (phishing-resistant)
+- Zero Trust Architecture with mTLS
+- PCI DSS compliance for payments
+- OAuth2 with fine-grained scopes (60+)
+
+### ⚖️ Fairness & Transparency
+- Independent fairness audits for ranking algorithms
+- Public fairness scorecards
+- Dispute resolution system
+- Open algorithm parameters
+
+### 🌍 Standards Compliant
+- OpenAPI 3.1.0
+- OAuth 2.0 & OpenID Connect
+- W3C Trace Context
+- Schema.org metadata
+- IAB Content Taxonomy v3.0
+
+## Current Status
+
+:::info Specification Phase
+RegistryAccord is currently in the **specification phase**. All API contracts are complete and validated. Implementation, SDKs, and reference services are coming soon.
+:::
+
+| Component | Status |
+|-----------|--------|
+| **API Specifications** | ✅ Complete (v2.0.0) |
+| **OpenAPI Docs** | ✅ Published |
+| **Example Workflows** | ✅ 34 examples available |
+| **SDKs** | 🔄 In Development |
+| **Reference Implementation** | 🔄 Planned |
+| **Public API** | 📅 Coming Soon |
+
+## Platform Services
+
+All services have complete OpenAPI 3.1 specifications:
+
+| Service | Endpoints | Examples | Status |
+|---------|-----------|----------|--------|
+| **Identity** | 22 | 8 workflows | ✅ v1.0.0 |
+| **Content Registry** | 20 | 6 workflows | ✅ v1.0.0 |
+| **Payments & Payouts** | 26 | 6 workflows | ✅ v1.0.0 |
+| **Storage Gateway** | 12 | 4 workflows | ✅ v1.0.0 |
+| **Feed Generator** | 7 | 3 workflows | ✅ v1.0.0 |
+| **Revenue Services** | 16 | 3 workflows | ✅ v1.0.0 |
+| **Analytics** | 11 | 4 workflows | ✅ v1.0.0 |
+
+**Total:** 114 endpoints, 34 workflow examples, 50+ data models
+
+### Identity Service
+Authentication, authorization, and consent management.
+
+**Key Features:**
+- WebAuthn/Passkey authentication
+- OAuth2/OIDC flows
+- Granular consent management
+- Organization & team management
+
+### Content Registry
+Structured, versioned, licensed digital content with provenance.
+
+**Key Features:**
+- JSON-LD semantic metadata
+- Version control with diff/merge
+- License attachment and enforcement
+- Content collections
+- Provenance tracking
+
+### Payments & Payouts
+Global payments infrastructure with fraud detection and dispute resolution.
+
+**Key Features:**
+- PCI-compliant payment processing
+- Revenue split rules
+- Subscription billing
+- Dispute workflows
+- Programmable fraud detection
+
+### Storage Gateway
+Distributed, encrypted, content-addressed storage.
+
+**Key Features:**
+- Content-addressed (SHA-256) deduplication
+- End-to-end encryption
+- Streaming upload/download
+- CDN integration
+- Multi-provider support
+
+### Feed Generator
+Personalized, algorithmic feeds with fairness audits.
+
+**Key Features:**
+- Timeline and algorithmic ranking
+- Real-time event streaming
+- Fairness scorecards
+- Dispute resolution
+- A/B testing for algorithms
+
+### Revenue Services
+Advertising platform with real-time bidding and brand safety.
+
+**Key Features:**
+- Real-time bidding (RTB)
+- Brand safety controls
+- Invalid Traffic (IVT) detection
+- Campaign management
+- Performance reporting
+
+### Analytics Service
+Event ingestion and privacy-compliant analytics.
+
+**Key Features:**
+- Event collection and schema registry
+- Metrics querying
+- Differential privacy
+- Privacy budget management
+- Data export capabilities
+
+## Explore the Specifications
+
+### 📖 API Reference
+Browse the complete API specifications using the navigation menu.
+
+### 📋 Example Workflows
+See how the APIs work together in the [RegistryAccord Specs Repository](https://github.com/RegistryAccord/registryaccord-specs/tree/main/examples).
+
+**Example Categories:**
+- Identity: Authentication and consent flows
+- Content: Publishing and versioning workflows
+- Payments: Payment processing and splits
+- Storage: Upload and download patterns
+- Feeds: Feed generation and ranking
+- Revenue: Ad campaigns and reporting
+- Analytics: Event tracking and metrics
+
+### 🔍 Specifications Repository
+View the source of truth at [github.com/RegistryAccord/registryaccord-specs](https://github.com/RegistryAccord/registryaccord-specs).
+
+**Repository Contents:**
+- OpenAPI 3.1.0 specifications (7 services)
+- JSON schemas (50+ data models)
+- Event schemas (10+ lifecycle events)
+- Example workflows (34 complete examples)
+- Architecture Decision Records (ADRs)
+- Conformance test fixtures
+
+## Governance
+
+RegistryAccord will be governed by:
+
+- **Technical Steering Committee (TSC)** - Protocol evolution
+- **RFC Process** - Community-driven design
+- **Working Groups** - Domain expertise
+- **Conformance Testing** - Implementation compatibility
+
+:::note Formation Pending
+Formal governance structures will be established when reference implementations are available and the community reaches critical mass.
+:::
+
+## Technical Standards
+
+RegistryAccord builds on proven standards:
+
+| Standard | Purpose |
+|----------|---------|
+| **OpenAPI 3.1.0** | API specification format |
+| **JSON Schema Draft 2020-12** | Data model validation |
+| **OAuth 2.0 & OIDC** | Authorization and authentication |
+| **WebAuthn** | Phishing-resistant authentication |
+| **W3C DIDs** | Decentralized identifiers |
+| **JSON-LD** | Semantic metadata |
+| **Schema.org** | Content metadata vocabulary |
+| **RFC 7807** | Problem Details for HTTP APIs |
+| **RFC 8594** | Deprecation header |
+| **W3C Trace Context** | Distributed tracing |
+| **IAB Content Taxonomy v3.0** | Brand safety classification |
+| **TAG IVT Guidelines** | Fraud detection |
+| **MRC Viewability Standards** | Ad measurement |
+
+## Open Source
+
+RegistryAccord is 100% open source under the Apache 2.0 license.
+
+**Repository:** [github.com/RegistryAccord/registryaccord-specs](https://github.com/RegistryAccord/registryaccord-specs)
+
+**What's Available:**
+- Complete API specifications
+- Data schemas and models
+- Example workflows
+- Documentation
+- Validation scripts
+
+**Coming Soon:**
+- SDKs (TypeScript, Python, Go, Java, .NET)
+- Reference implementations
+- Conformance testing harness
+
+## Get Involved
+
+### Community Resources
+
+- **GitHub Discussions**: [registryaccord-specs/discussions](https://github.com/RegistryAccord/registryaccord-specs/discussions)
+- **GitHub Issues**: [registryaccord-specs/issues](https://github.com/RegistryAccord/registryaccord-specs/issues)
+
+### How to Contribute
+
+**For Implementers:**
+1. Review the API specifications
+2. Build conformant services
+3. Run validation tests (coming soon)
+4. Join discussions on implementation challenges
+
+**For Developers:**
+1. Explore the API reference
+2. Try example workflows
+3. Share feedback on developer experience
+4. Suggest improvements via issues
+
+**For Contributors:**
+1. Join GitHub Discussions
+2. Submit RFCs for major changes
+3. Contribute examples and documentation
+4. Help shape the protocol
+
+## Roadmap
+
+### ✅ Phase 1-4: Specifications (Complete)
+All 7 service specifications complete with 114 endpoints, 34 workflow examples, and conformance criteria defined.
+
+### 🔄 Phase 5: Implementation (In Progress)
+- SDKs for multiple languages
+- Reference implementations
+- Conformance testing harness
+- This documentation site
+
+### 📅 Phase 6: Launch (Coming Soon)
+- Public API deployment
+- Community onboarding
+- Governance formation
+- Ecosystem activation
+
+## Next Steps
+
+**Explore the specifications** using the navigation menu:
+- Check out the API Reference section
+- Review service documentation
+- Examine example workflows in the GitHub repository
+- Join the community discussions
+
+---
+
+**Built with ❤️ by the RegistryAccord community**

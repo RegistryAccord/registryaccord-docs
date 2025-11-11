@@ -1,0 +1,188 @@
+---
+id: registryaccord-identity-service-api
+title: "RegistryAccord Identity Service API"
+description: "Portable, user-centric identity layer with authentication, authorization,"
+sidebar_label: Introduction
+sidebar_position: 0
+hide_title: true
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+
+<span
+  className={"theme-doc-version-badge badge badge--secondary"}
+  children={"Version: 1.0.0"}
+>
+</span>
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"RegistryAccord Identity Service API"}
+>
+</Heading>
+
+
+
+Portable, user-centric identity layer with authentication, authorization,
+consent management, and audit capabilities for the RegistryAccord protocol.
+
+## Key Features
+- WebAuthn/Passkey primary authentication (phishing-resistant)
+- OAuth2/OIDC for application authorization
+- Granular consent management with 24-hour withdrawal SLA
+- RBAC/ABAC with fine-grained scopes
+- Organization and team management
+- Comprehensive audit logging
+
+## Authentication Strategy
+- **User Authentication**: WebAuthn (FIDO2) / Passkey
+- **App Authorization**: OAuth2 authorization_code & client_credentials flows
+- **Enterprise SSO**: SAML/OIDC federation support
+
+
+<div
+  style={{"marginBottom":"2rem"}}
+>
+  <Heading
+    id={"authentication"}
+    as={"h2"}
+    className={"openapi-tabs__heading"}
+    children={"Authentication"}
+  >
+  </Heading><SchemaTabs
+    className={"openapi-tabs__security-schemes"}
+  >
+    <TabItem
+      label={"OAuth 2.0: oauth2"}
+      value={"oauth2"}
+    >
+      
+      
+      OAuth2 flows for application authorization
+      
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Security Scheme Type:
+              </th><td>
+                oauth2
+              </td>
+            </tr><tr>
+              <th>
+                OAuth Flow (authorizationCode):
+              </th><td>
+                <div>
+                  Token URL: https://auth.registryaccord.com/token
+                </div><div>
+                  Authorization URL: https://auth.registryaccord.com/authorize
+                </div><span>
+                  Scopes:
+                </span><ul>
+                  <li>
+                    identity:read: Read identity information
+                  </li><li>
+                    identity:write: Create and update identities
+                  </li><li>
+                    identity:delete: Delete identities (RTBF)
+                  </li><li>
+                    consent:read: Read consent records
+                  </li><li>
+                    consent:write: Grant consents
+                  </li><li>
+                    consent:delete: Revoke consents
+                  </li><li>
+                    org:read: Read organization details
+                  </li><li>
+                    org:write: Manage organizations
+                  </li><li>
+                    audit:read: Query audit events
+                  </li>
+                </ul>
+              </td>
+            </tr><tr>
+              <th>
+                OAuth Flow (clientCredentials):
+              </th><td>
+                <div>
+                  Token URL: https://auth.registryaccord.com/token
+                </div><span>
+                  Scopes:
+                </span><ul>
+                  <li>
+                    service:identity: Service-to-service identity operations
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem><TabItem
+      label={"HTTP: Bearer Auth"}
+      value={"bearerAuth"}
+    >
+      
+      
+      JWT access tokens
+      
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Security Scheme Type:
+              </th><td>
+                http
+              </td>
+            </tr><tr>
+              <th>
+                HTTP Authorization Scheme:
+              </th><td>
+                bearer
+              </td>
+            </tr><tr>
+              <th>
+                Bearer format:
+              </th><td>
+                JWT
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem>
+  </SchemaTabs>
+</div><div
+  style={{"display":"flex","flexDirection":"column","marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    Contact
+  </h3><span>
+    RegistryAccord Maintainers: [specs@registryaccord.com](mailto:specs@registryaccord.com)
+  </span><span>
+    URL: [https://github.com/RegistryAccord/registryaccord-specs](https://github.com/RegistryAccord/registryaccord-specs)
+  </span>
+</div><div
+  style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    License
+  </h3><a
+    href={"https://www.apache.org/licenses/LICENSE-2.0.html"}
+  >
+    Apache-2.0
+  </a>
+</div>
+      

@@ -1,0 +1,205 @@
+---
+id: registryaccord-payments-payouts-api
+title: "RegistryAccord Payments & Payouts API"
+description: "Secure payment processing with programmable revenue sharing, fraud detection,"
+sidebar_label: Introduction
+sidebar_position: 0
+hide_title: true
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+
+<span
+  className={"theme-doc-version-badge badge badge--secondary"}
+  children={"Version: 1.0.0"}
+>
+</span>
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"RegistryAccord Payments & Payouts API"}
+>
+</Heading>
+
+
+
+Secure payment processing with programmable revenue sharing, fraud detection,
+and dispute resolution for the RegistryAccord protocol.
+
+## Key Features
+- **Payment intents** for secure, PCI-compliant payment flows
+- **Programmable split rules** for revenue sharing
+- **Double-entry ledgers** for complete auditability
+- **Fraud detection hooks** with pre-settlement alerts
+- **Payment holds** for fraud review periods
+- **Dispute resolution** with defined SLAs and arbitration escalation
+
+## Security Features
+- Idempotency keys prevent duplicate charges
+- Precision-safe math (currency as integers in smallest unit)
+- PCI compliance delegated to PSPs (Stripe, Adyen, etc.)
+- HMAC-SHA256 webhook signatures
+
+## Fraud Protection
+- Pre-settlement fraud detection webhooks
+- Payment hold APIs for suspicious activity
+- Configurable fraud scoring thresholds
+- Integration with external fraud detection services
+
+## Dispute Resolution
+- Creator-initiated disputes for revenue splits
+- Platform response within 7 business days
+- Arbitration escalation for unresolved disputes
+- Full audit trail of dispute lifecycle
+
+
+<div
+  style={{"marginBottom":"2rem"}}
+>
+  <Heading
+    id={"authentication"}
+    as={"h2"}
+    className={"openapi-tabs__heading"}
+    children={"Authentication"}
+  >
+  </Heading><SchemaTabs
+    className={"openapi-tabs__security-schemes"}
+  >
+    <TabItem
+      label={"OAuth 2.0: oauth2"}
+      value={"oauth2"}
+    >
+      
+      
+      
+      
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Security Scheme Type:
+              </th><td>
+                oauth2
+              </td>
+            </tr><tr>
+              <th>
+                OAuth Flow (authorizationCode):
+              </th><td>
+                <div>
+                  Token URL: https://auth.registryaccord.com/token
+                </div><div>
+                  Authorization URL: https://auth.registryaccord.com/authorize
+                </div><span>
+                  Scopes:
+                </span><ul>
+                  <li>
+                    payment:read: Read payment information
+                  </li><li>
+                    payment:write: Create and process payments
+                  </li><li>
+                    payment:refund: Refund payments
+                  </li><li>
+                    subscription:read: Read subscription information
+                  </li><li>
+                    subscription:write: Manage subscriptions
+                  </li><li>
+                    ledger:read: Read ledger entries
+                  </li><li>
+                    payout:read: Read payout information
+                  </li><li>
+                    payout:write: Create and manage payouts
+                  </li><li>
+                    payout:hold: Hold payouts for fraud review
+                  </li><li>
+                    dispute:read: Read dispute information
+                  </li><li>
+                    dispute:write: Create and manage disputes
+                  </li>
+                </ul>
+              </td>
+            </tr><tr>
+              <th>
+                OAuth Flow (clientCredentials):
+              </th><td>
+                <div>
+                  Token URL: https://auth.registryaccord.com/token
+                </div><span>
+                  Scopes:
+                </span><ul>
+                  <li>
+                    service:payments: Service-to-service payment operations
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem><TabItem
+      label={"HTTP: Bearer Auth"}
+      value={"bearerAuth"}
+    >
+      
+      
+      
+      
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Security Scheme Type:
+              </th><td>
+                http
+              </td>
+            </tr><tr>
+              <th>
+                HTTP Authorization Scheme:
+              </th><td>
+                bearer
+              </td>
+            </tr><tr>
+              <th>
+                Bearer format:
+              </th><td>
+                JWT
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem>
+  </SchemaTabs>
+</div><div
+  style={{"display":"flex","flexDirection":"column","marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    Contact
+  </h3><span>
+    RegistryAccord Maintainers: [specs@registryaccord.com](mailto:specs@registryaccord.com)
+  </span><span>
+    URL: [https://github.com/RegistryAccord/registryaccord-specs](https://github.com/RegistryAccord/registryaccord-specs)
+  </span>
+</div><div
+  style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    License
+  </h3><a
+    href={"https://www.apache.org/licenses/LICENSE-2.0.html"}
+  >
+    Apache-2.0
+  </a>
+</div>
+      

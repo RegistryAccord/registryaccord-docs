@@ -9,11 +9,15 @@ jobs:
   sync-specs:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write # Explicitly allow writing
+
     steps:
       - name: Checkout docs repo
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # Fetch all history for better git operations
 
       - name: Checkout specs repo
         uses: actions/checkout@v4
@@ -59,15 +63,29 @@ jobs:
           npm run gen-all
           echo "✅ API docs generated"
 
+          # Verify docs were generated
+          if [ -d "docs/api" ]; then
+            echo "✅ docs/api directory exists"
+            ls -la docs/api
+          else
+            echo "❌ docs/api directory not found!"
+            exit 1
+          fi
+
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet; then
+          # Force add ignored files for checking
+          git add -f openapi/specs docs/api
+
+          if git diff --cached --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "ℹ️  No changes detected"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "✅ Changes detected"
+            echo "Changed files:"
+            git diff --cached --name-only
           fi
 
       - name: Commit and push changes
@@ -76,8 +94,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add openapi docs/api
-          git commit -m "chore: sync OpenAPI specs from registryaccord-specs
+          # Force add the generated files (they're in .gitignore)
+          git add -f openapi/specs docs/api
+
+          git commit -m "chore: sync OpenAPI specs and regenerate API docs
 
           - Updated OpenAPI specifications
           - Regenerated API documentation

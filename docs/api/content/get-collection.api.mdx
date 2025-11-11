@@ -1,0 +1,71 @@
+---
+id: get-collection
+title: "Get collection"
+description: "Retrieves a specific collection by ID."
+sidebar_label: "Get collection"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api/content/registryaccord-content-registry-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get collection"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/v1/collections/{id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves a specific collection by ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"id","in":"path","description":"Collection ID","required":true,"schema":{"type":"string","format":"uuid"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Collection retrieved successfully","headers":{"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}},"content":{"application/json":{"schema":{"type":"object","required":["id","owner_id","name","created_at","updated_at"],"properties":{"id":{"type":"string","format":"uuid"},"owner_id":{"type":"string","format":"uuid"},"name":{"type":"string","maxLength":255},"description":{"type":"string","maxLength":2000},"is_public":{"type":"boolean","default":false},"item_count":{"type":"integer","minimum":0,"description":"Number of content items in collection"},"created_at":{"type":"string","format":"date-time"},"updated_at":{"type":"string","format":"date-time"}},"title":"Collection"}}}},"400":{"description":"Bad Request - The request was invalid or cannot be served","content":{"application/problem+json":{"schema":{"type":"object","required":["error"],"properties":{"error":{"type":"object","required":["code","message","correlationId"],"properties":{"code":{"type":"string","description":"RegistryAccord-specific error code"},"message":{"type":"string","description":"Human-readable error message"},"details":{"type":"object","description":"Additional structured information about the error"},"correlationId":{"type":"string","format":"uuid","description":"Unique identifier for tracing errors across systems"}}}},"title":"Error"}}},"headers":{"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}}},"401":{"description":"Unauthorized - Authentication failed or not provided","content":{"application/problem+json":{"schema":{"type":"object","required":["error"],"properties":{"error":{"type":"object","required":["code","message","correlationId"],"properties":{"code":{"type":"string","description":"RegistryAccord-specific error code"},"message":{"type":"string","description":"Human-readable error message"},"details":{"type":"object","description":"Additional structured information about the error"},"correlationId":{"type":"string","format":"uuid","description":"Unique identifier for tracing errors across systems"}}}},"title":"Error"}}},"headers":{"WWW-Authenticate":{"description":"Authentication challenge","schema":{"type":"string"}},"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}}},"403":{"description":"Forbidden - The authenticated user does not have permission to access this resource","content":{"application/problem+json":{"schema":{"type":"object","required":["error"],"properties":{"error":{"type":"object","required":["code","message","correlationId"],"properties":{"code":{"type":"string","description":"RegistryAccord-specific error code"},"message":{"type":"string","description":"Human-readable error message"},"details":{"type":"object","description":"Additional structured information about the error"},"correlationId":{"type":"string","format":"uuid","description":"Unique identifier for tracing errors across systems"}}}},"title":"Error"}}},"headers":{"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}}},"404":{"description":"Not Found - The requested resource could not be found","content":{"application/problem+json":{"schema":{"type":"object","required":["error"],"properties":{"error":{"type":"object","required":["code","message","correlationId"],"properties":{"code":{"type":"string","description":"RegistryAccord-specific error code"},"message":{"type":"string","description":"Human-readable error message"},"details":{"type":"object","description":"Additional structured information about the error"},"correlationId":{"type":"string","format":"uuid","description":"Unique identifier for tracing errors across systems"}}}},"title":"Error"}}},"headers":{"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}}},"429":{"description":"Too Many Requests - The user has sent too many requests in a given amount of time","content":{"application/problem+json":{"schema":{"type":"object","required":["error"],"properties":{"error":{"type":"object","required":["code","message","correlationId"],"properties":{"code":{"type":"string","description":"RegistryAccord-specific error code"},"message":{"type":"string","description":"Human-readable error message"},"details":{"type":"object","description":"Additional structured information about the error"},"correlationId":{"type":"string","format":"uuid","description":"Unique identifier for tracing errors across systems"}}}},"title":"Error"}}},"headers":{"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"Retry-After":{"description":"Seconds to wait before making another request","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}}},"500":{"description":"Internal Server Error - The server encountered an unexpected condition","content":{"application/problem+json":{"schema":{"type":"object","required":["error"],"properties":{"error":{"type":"object","required":["code","message","correlationId"],"properties":{"code":{"type":"string","description":"RegistryAccord-specific error code"},"message":{"type":"string","description":"Human-readable error message"},"details":{"type":"object","description":"Additional structured information about the error"},"correlationId":{"type":"string","format":"uuid","description":"Unique identifier for tracing errors across systems"}}}},"title":"Error"}}},"headers":{"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}}},"503":{"description":"Service Unavailable - The server is currently unable to handle the request","content":{"application/problem+json":{"schema":{"type":"object","required":["error"],"properties":{"error":{"type":"object","required":["code","message","correlationId"],"properties":{"code":{"type":"string","description":"RegistryAccord-specific error code"},"message":{"type":"string","description":"Human-readable error message"},"details":{"type":"object","description":"Additional structured information about the error"},"correlationId":{"type":"string","format":"uuid","description":"Unique identifier for tracing errors across systems"}}}},"title":"Error"}}},"headers":{"X-RateLimit-Limit":{"description":"Request limit per hour","schema":{"type":"integer"}},"X-RateLimit-Remaining":{"description":"Requests remaining in current hour","schema":{"type":"integer"}},"X-RateLimit-Reset":{"description":"Seconds until limit reset","schema":{"type":"integer"}},"Retry-After":{"description":"Seconds to wait before making another request","schema":{"type":"integer"}},"RA-API-Version":{"description":"API version","schema":{"type":"string","example":"2025-11-01"}},"X-Correlation-ID":{"description":"Unique request identifier for tracing","schema":{"type":"string","format":"uuid"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,10 @@
+{
+  "label": "Core Concepts",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "Core Concepts",
+    "description": "Understand the fundamental concepts behind RegistryAccord",
+    "slug": "/core-concepts"
+  }
+}

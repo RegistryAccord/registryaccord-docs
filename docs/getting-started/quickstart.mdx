@@ -1,0 +1,519 @@
+---
+sidebar_position: 1
+title: Quick Start
+description: Get started with RegistryAccord specifications
+---
+
+# Quick Start Guide
+
+Get familiar with RegistryAccord specifications and understand how to work with the protocol.
+
+:::info Current Status
+RegistryAccord is in the **specification phase**. This guide shows you how to explore the specs, understand the architecture, and prepare for future implementation.
+:::
+
+## What You Can Do Now
+
+### 1. Explore the Specifications
+
+**All API specifications are complete and published:**
+- 7 core services with 114 endpoints
+- Complete OpenAPI 3.1 specifications
+- 50+ JSON Schema data models
+- 34 workflow examples
+
+**Access the specs:**
+
+Clone the specs repository
+```bash
+git clone https://github.com/RegistryAccord/registryaccord-specs.git
+cd registryaccord-specs
+```
+
+Browse the structure
+```bash
+ls -la openapi/ # OpenAPI specifications
+ls -la schemas/ # JSON schemas
+ls -la examples/ # Workflow examples
+```
+
+### 2. Understand the Services
+
+**Identity Service** (22 endpoints)
+- WebAuthn/Passkey authentication
+- OAuth2/OIDC authorization
+- Consent management
+- Organization management
+
+**Content Registry** (20 endpoints)
+- Content creation and versioning
+- JSON-LD metadata
+- License management
+- Collection organization
+
+**Payments & Payouts** (26 endpoints)
+- Payment processing
+- Revenue splits
+- Subscription billing
+- Dispute handling
+
+**Storage Gateway** (12 endpoints)
+- File upload/download
+- Content addressing
+- Multi-provider support
+- Encryption
+
+**Feed Generator** (7 endpoints)
+- Feed generation
+- Ranking algorithms
+- Fairness audits
+- Dispute resolution
+
+**Revenue Services** (16 endpoints)
+- Ad campaigns
+- RTB integration
+- Brand safety
+- Performance reporting
+
+**Analytics** (11 endpoints)
+- Event tracking
+- Metrics querying
+- Privacy budgets
+- Data exports
+
+### 3. View Example Workflows
+
+Each service includes complete workflow examples:
+
+View identity examples
+```bash
+cat examples/identity/01-register-user.yaml
+cat examples/identity/02-authenticate-webauthn.yaml
+```
+
+View content examples
+```bash
+cat examples/content/01-create-article.yaml
+cat examples/content/02-version-content.yaml
+```
+
+View payment examples
+```bash
+cat examples/payments/01-create-payment-intent.yaml
+cat examples/payments/02-setup-revenue-split.yaml
+```
+
+**Example workflow structure:**
+
+```yaml
+name: User Registration with WebAuthn
+description: Complete user registration flow
+
+steps:
+  - name: Create identity
+    request:
+      method: POST
+      path: /v1/identities
+      headers:
+        Content-Type: application/json
+      body:
+        display_name: "Jane Doe"
+        email: "jane@example.com"
+    
+    response:
+      status: 201
+      headers:
+        Location: /v1/identities/did:key:z6Mk...
+      body:
+        id: "did:key:z6Mk..."
+        display_name: "Jane Doe"
+        email: "jane@example.com"
+        created_at: "2024-01-15T10:30:00Z"
+```
+
+---
+
+## Working with OpenAPI Specifications
+
+### View Specifications Locally
+
+**Option 1: Use Swagger UI**
+
+```bash
+# Install Swagger UI
+npm install -g swagger-ui
+
+# Serve the Identity spec
+swagger-ui openapi/identity/v1/openapi.yaml
+
+# Opens at http://localhost:3000
+```
+
+**Option 2: Use Redoc**
+
+```bash
+# Install Redoc CLI
+npm install -g redoc-cli
+
+# Serve the Identity spec
+redoc-cli serve openapi/identity/v1/openapi.yaml
+
+# Opens at http://localhost:8080
+```
+
+**Option 3: Use Online Viewers**
+
+Upload any OpenAPI spec to:
+- Swagger Editor: https://editor.swagger.io/
+- Redocly: https://redocly.github.io/redoc/
+
+### Generate Mock Servers
+
+Test API contracts without building the full service:
+
+```bash
+# Install Prism
+npm install -g @stoplight/prism-cli
+
+# Start mock server for Identity service
+prism mock openapi/identity/v1/openapi.yaml
+
+# Mock server runs at http://localhost:4010
+```
+
+**Test the mock:**
+
+```bash
+# Create a mock identity
+curl -X POST http://localhost:4010/v1/identities \
+  -H "Content-Type: application/json" \
+  -d '{
+  "display_name": "Test User",
+  "email": "test@example.com"
+}'
+```
+
+---
+
+## Understanding API Patterns
+
+### 1. Authentication
+
+All RegistryAccord services use OAuth2 with fine-grained scopes:
+
+```http
+POST /v1/identities HTTP/1.1
+Authorization: Bearer eyJhbGciOiJSUzI1NiIs...
+Content-Type: application/json
+
+```
+
+Body:
+```json
+{
+  "display_name": "Jane Doe",
+  "email": "jane@example.com"
+}
+```
+
+**Common scopes:**
+- `identity:read` - Read identity information
+- `identity:write` - Create/update identities
+- `content:read` - Read content
+- `content:write` - Create/update content
+- `payments:read` - Read payment information
+- `payments:write` - Process payments
+### 2. Standard Request Format
+
+```http
+POST /v1/RESOURCE_ID HTTP/1.1
+Host: api.registryaccord.com
+Authorization: Bearer JWT_TOKEN
+Content-Type: application/json
+Idempotency-Key: UUID_VALUE
+
+```
+
+Body:
+```json
+{
+  "field1": "value1",
+  "field2": "value2"
+}
+```
+
+### 3. Standard Response Format
+
+**Success (2xx):**
+
+```http
+HTTP/1.1 201 Created
+Location: /v1/RESOURCE_ID/ID_VALUE
+Content-Type: application/json
+
+{
+  "id": "resource_id",
+  "field1": "value1",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+
+**Error (4xx/5xx):**
+
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: application/problem+json
+
+{
+  "type": "https://api.registryaccord.com/errors/validation-error",
+  "title": "Validation Failed",
+  "status": 400,
+  "detail": "The 'email' field must be a valid email address",
+  "instance": "/v1/identities"
+}
+```
+
+### 4. Pagination
+
+List endpoints support cursor-based pagination:
+
+```http
+GET /v1/identities?limit=20&cursor=abc123 HTTP/1.1
+Authorization: Bearer JWT_TOKEN
+```
+
+Response:
+
+```json
+{
+  "items": [...],
+  "pagination": {
+    "next_cursor": "xyz789",
+    "has_more": true,
+    "total_count": 150
+  }
+}
+```
+
+---
+
+## Key Concepts
+
+### Decentralized Identifiers (DIDs)
+
+All identities use W3C DIDs:
+
+```
+did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK
+```
+
+**Format:**
+- `did` - DID URI scheme
+- `key` - DID method (public key)
+- `z6Mk...` - Method-specific identifier
+
+### Content Addressing
+
+Files use SHA-256 content addressing:
+
+```
+sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+```
+
+### Versioning
+
+All APIs use date-based versioning:
+
+```
+/v1/identities → Version 1 (2025-01-15)
+```
+
+Header-based version negotiation:
+
+```http
+API-Version: 2025-01-15
+```
+
+---
+
+## Next Steps
+
+### For Implementers
+
+**Phase 1: Learn the Specs**
+1. Read through the OpenAPI specifications
+2. Understand the data models
+3. Study the authentication flows
+4. Review example workflows
+
+**Phase 2: Design Your Implementation**
+1. Choose your tech stack
+2. Plan your database schema
+3. Design your deployment architecture
+4. Map RA specs to your implementation
+
+**Phase 3: Build & Test**
+1. Implement core services
+2. Use conformance tests (coming soon)
+3. Validate against specs
+4. Earn certification
+
+### For App Developers
+
+**Current Actions:**
+1. Study the API contracts
+2. Understand available endpoints
+3. Review data models and schemas
+4. Plan your integration approach
+
+**Wait For:**
+- SDK releases (TypeScript, Python, Go, etc.)
+- Reference implementations
+- Live API endpoints
+- Developer sandboxes
+
+### For Contributors
+
+**How to Contribute:**
+1. Join GitHub Discussions
+2. Review and comment on specs
+3. Suggest improvements
+4. Submit example workflows
+5. Help write documentation
+
+---
+
+## Common Patterns
+
+### Creating Resources
+
+```http
+POST /v1/RESOURCE_ID
+Authorization: Bearer JWT_TOKEN
+Content-Type: application/json
+Idempotency-Key: UUID_VALUE
+
+```
+
+Body:
+```json
+RESOURCE_DATA
+```
+
+Response: 201 Created
+```
+Location: /v1/RESOURCE_ID/ID_VALUE
+```
+
+Body:
+```json
+CREATED_RESOURCE_DATA
+```
+
+### Reading Resources
+
+```http
+GET /v1/RESOURCE_ID/ID_VALUE
+Authorization: Bearer JWT_TOKEN
+```
+
+Response: 200 OK
+```
+
+Body:
+```json
+RESOURCE_DATA
+```
+
+### Updating Resources
+
+```http
+PATCH /v1/RESOURCE_ID/ID_VALUE
+Authorization: Bearer JWT_TOKEN
+Content-Type: application/json
+```
+
+Body:
+```json
+PARTIAL_UPDATE_DATA
+```
+
+Response: 200 OK
+```
+
+Body:
+```json
+UPDATED_RESOURCE_DATA
+```
+
+### Deleting Resources
+
+```http
+DELETE /v1/RESOURCE_ID/ID_VALUE
+Authorization: Bearer JWT_TOKEN
+```
+
+Response: 204 No Content
+```
+
+### Listing Resources
+
+```http
+GET /v1/RESOURCE_ID?limit=20&cursor=CURSOR_VALUE
+Authorization: Bearer JWT_TOKEN
+```
+
+Response: 200 OK
+```
+
+Body:
+```json
+{
+  "items": [RESOURCE1, RESOURCE2, ...],
+  "pagination": {
+    "next_cursor": NEXT_CURSOR,
+    "has_more": HAS_MORE
+  }
+}
+```
+
+---
+
+## Standards Compliance
+
+RegistryAccord follows these standards:
+
+- **OpenAPI 3.1.0** - API specification format
+- **JSON Schema Draft 2020-12** - Data validation
+- **RFC 7807** - Problem Details for HTTP APIs
+- **RFC 8594** - Deprecation Header
+- **OAuth 2.0 & OIDC** - Authentication/authorization
+- **WebAuthn** - Phishing-resistant authentication
+- **W3C DIDs** - Decentralized identifiers
+- **JSON-LD** - Semantic metadata
+- **W3C Trace Context** - Distributed tracing
+
+---
+
+## Resources
+
+**Specifications:**
+- GitHub Repository: https://github.com/RegistryAccord/registryaccord-specs
+- OpenAPI Specs: `openapi/` directory
+- JSON Schemas: `schemas/` directory
+- Examples: `examples/` directory
+
+**Community:**
+- GitHub Discussions: https://github.com/RegistryAccord/registryaccord-specs/discussions
+- GitHub Issues: https://github.com/RegistryAccord/registryaccord-specs/issues
+
+**Tools:**
+- Swagger UI: https://swagger.io/tools/swagger-ui/
+- Redoc: https://redocly.com/redoc/
+- Prism Mock Server: https://stoplight.io/open-source/prism
+
+---
+
+## Questions?
+
+Join the community discussion on GitHub to ask questions, share feedback, and collaborate on the protocol specifications.

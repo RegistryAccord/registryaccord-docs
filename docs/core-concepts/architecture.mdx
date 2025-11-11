@@ -1,0 +1,154 @@
+---
+sidebar_position: 1
+title: System Architecture
+description: High-level architecture of the RegistryAccord protocol
+---
+
+# System Architecture
+
+RegistryAccord is built on a **four-layer architecture** that separates concerns for maximum flexibility and interoperability.
+
+## The Four Layers
+
+### 1. Identity Layer
+**Purpose:** Who are you, and what can you do?
+
+**Components:**
+- Decentralized identifiers (DIDs)
+- WebAuthn/Passkey authentication
+- OAuth2/OIDC authorization
+- Granular consent management
+- Organization & team management
+
+**Why Separate:** Identity should be portable across apps. Your identity isn't tied to any single platform.
+
+---
+
+### 2. Content Layer
+**Purpose:** What content exists, who owns it, and how can it be used?
+
+**Components:**
+- Structured, versioned content
+- JSON-LD semantic metadata
+- License attachment & enforcement
+- Content collections
+- Provenance tracking
+
+**Why Separate:** Content should live independently of any single app. Publish once, distribute everywhere.
+
+---
+
+### 3. Discovery Layer
+**Purpose:** How do users find content?
+
+**Components:**
+- Algorithmic feed generation
+- Real-time event streaming
+- Custom ranking algorithms
+- Fairness scorecards & audits
+- A/B testing framework
+
+**Why Separate:** Algorithms should be transparent, auditable, and pluggable. No single "the algorithm."
+
+---
+
+### 4. Monetization Layer
+**Purpose:** How do creators and builders earn?
+
+**Components:**
+- **Payments & Payouts:** Subscriptions, tips, splits
+- **Revenue Services:** Ad marketplace, RTB, brand safety
+- **Analytics:** Performance tracking with privacy
+
+**Why Separate:** Revenue should be programmable and transparent. Creators control their economics.
+
+---
+
+## Supporting Services
+
+### Storage Gateway
+**Purpose:** Where does content actually live?
+
+**Features:**
+- Content-addressed storage (SHA-256)
+- Multi-provider support (S3, IPFS, etc.)
+- End-to-end encryption
+- CDN integration
+
+---
+
+## How It All Fits Together
+```text
+┌──────────────┐
+│ User/Creator │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────────┐
+│ Identity Layer   │ ← Authentication, consent
+└──────┬───────────┘
+       │
+       ▼
+┌──────────────────┐
+│ Content Layer    │ ← Publishing, versioning
+└──────┬───────────┘
+       │
+       ▼
+┌──────────────────┐
+│ Storage Gateway  │ ← File storage
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│ Discovery Layer  │ ← Feed generation
+└──────┬───────────┘
+       │
+       ▼
+┌──────────────────┐
+│ Monetization     │ ← Payments, ads, analytics
+└──────────────────┘
+```
+
+## Design Philosophy
+
+### Separation of Concerns
+Each layer has a single, well-defined purpose. This enables:
+- **Composability:** Mix and match implementations
+- **Competition:** Multiple providers per layer
+- **Innovation:** Iterate independently
+
+### Interoperability First
+All interfaces are defined by **open specifications**, not implementations.
+- Standard formats (OpenAPI, JSON-LD, OAuth2)
+- Well-defined contracts
+- Version negotiation
+
+### Privacy by Design
+Privacy isn't bolted on—it's fundamental:
+- Granular consent at the Identity layer
+- Purpose limitation in Analytics
+- Differential privacy for aggregates
+- Right to erasure across all layers
+
+### Creator Ownership
+Creators own:
+- Their identity (portable DID)
+- Their content (versioned, licensed)
+- Their audience (consent-based)
+- Their economics (programmable splits)
+
+## Technical Standards
+
+RegistryAccord builds on proven standards:
+
+| Layer | Standards |
+|-------|-----------|
+| **Identity** | W3C DIDs, WebAuthn, OAuth 2.0, OIDC |
+| **Content** | JSON-LD, Schema.org, Dublin Core |
+| **Discovery** | OpenAPI 3.1, JSON Schema |
+| **Monetization** | PCI DSS, IAB standards, OpenRTB |
+| **All** | TLS 1.3, mTLS, W3C Trace Context |
+
+## Service Specifications
+
+All seven services have complete OpenAPI specifications available in the API Reference section of this documentation.

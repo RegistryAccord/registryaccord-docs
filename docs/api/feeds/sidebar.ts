@@ -8,6 +8,34 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
+      label: "Experiments",
+      link: {
+        type: "doc",
+        id: "api/feeds/experiments",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/feeds/create-experiment",
+          label: "Create A/B test",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api/feeds/list-experiments",
+          label: "List experiments",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api/feeds/get-experiment-results",
+          label: "Get experiment results",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "Feeds",
       link: {
         type: "doc",
@@ -71,34 +99,6 @@ const sidebar: SidebarsConfig = {
           id: "api/feeds/register-custom-signal",
           label: "Register custom signal",
           className: "api-method post",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Experiments",
-      link: {
-        type: "doc",
-        id: "api/feeds/experiments",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "api/feeds/create-experiment",
-          label: "Create A/B test",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api/feeds/list-experiments",
-          label: "List experiments",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api/feeds/get-experiment-results",
-          label: "Get experiment results",
-          className: "api-method get",
         },
       ],
     },

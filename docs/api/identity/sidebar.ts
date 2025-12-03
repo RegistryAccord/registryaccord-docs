@@ -8,6 +8,50 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
+      label: "Audit",
+      link: {
+        type: "doc",
+        id: "api/identity/audit",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/identity/query-audit-events",
+          label: "Query audit events",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Consents",
+      link: {
+        type: "doc",
+        id: "api/identity/consents",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/identity/grant-consent",
+          label: "Grant consent",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api/identity/list-consents",
+          label: "List consents",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api/identity/revoke-consent",
+          label: "Revoke consent",
+          className: "api-method delete",
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "Identities",
       link: {
         type: "doc",
@@ -37,6 +81,68 @@ const sidebar: SidebarsConfig = {
           id: "api/identity/delete-identity",
           label: "Delete identity",
           className: "api-method delete",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Keys",
+      link: {
+        type: "doc",
+        id: "api/identity/keys",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/identity/create-key",
+          label: "Create keypair",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api/identity/list-keys",
+          label: "List keys",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api/identity/revoke-key",
+          label: "Revoke key",
+          className: "api-method delete",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Organizations",
+      link: {
+        type: "doc",
+        id: "api/identity/organizations",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/identity/list-organizations",
+          label: "List organizations",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api/identity/create-organization",
+          label: "Create organization",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api/identity/get-organization",
+          label: "Get organization",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "api/identity/update-organization",
+          label: "Update organization",
+          className: "api-method patch",
         },
       ],
     },
@@ -99,112 +205,6 @@ const sidebar: SidebarsConfig = {
           id: "api/identity/revoke-token",
           label: "Revoke token",
           className: "api-method delete",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Organizations",
-      link: {
-        type: "doc",
-        id: "api/identity/organizations",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "api/identity/list-organizations",
-          label: "List organizations",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api/identity/create-organization",
-          label: "Create organization",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api/identity/get-organization",
-          label: "Get organization",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api/identity/update-organization",
-          label: "Update organization",
-          className: "api-method patch",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Consents",
-      link: {
-        type: "doc",
-        id: "api/identity/consents",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "api/identity/grant-consent",
-          label: "Grant consent",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api/identity/list-consents",
-          label: "List consents",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api/identity/revoke-consent",
-          label: "Revoke consent",
-          className: "api-method delete",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Keys",
-      link: {
-        type: "doc",
-        id: "api/identity/keys",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "api/identity/create-key",
-          label: "Create keypair",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api/identity/list-keys",
-          label: "List keys",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "api/identity/revoke-key",
-          label: "Revoke key",
-          className: "api-method delete",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Audit",
-      link: {
-        type: "doc",
-        id: "api/identity/audit",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "api/identity/query-audit-events",
-          label: "Query audit events",
-          className: "api-method get",
         },
       ],
     },

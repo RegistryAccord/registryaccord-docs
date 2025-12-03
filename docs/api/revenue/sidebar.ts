@@ -30,6 +30,28 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
+      label: "Creatives",
+      link: {
+        type: "doc",
+        id: "api/revenue/creatives",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/revenue/upload-creative",
+          label: "Upload creative",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api/revenue/list-creatives",
+          label: "List creatives",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "Segments",
       link: {
         type: "doc",
@@ -52,22 +74,16 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "Creatives",
+      label: "Transparency",
       link: {
         type: "doc",
-        id: "api/revenue/creatives",
+        id: "api/revenue/transparency",
       },
       items: [
         {
           type: "doc",
-          id: "api/revenue/upload-creative",
-          label: "Upload creative",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api/revenue/list-creatives",
-          label: "List creatives",
+          id: "api/revenue/explain-ad-targeting",
+          label: "Why am I seeing this ad?",
           className: "api-method get",
         },
       ],

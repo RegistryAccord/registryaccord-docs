@@ -24,44 +24,6 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "Metrics",
-      link: {
-        type: "doc",
-        id: "api/analytics/metrics",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "api/analytics/query-metrics",
-          label: "Query metrics",
-          className: "api-method post",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Schemas",
-      link: {
-        type: "doc",
-        id: "api/analytics/schemas",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "api/analytics/register-schema",
-          label: "Register schema",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "api/analytics/list-schemas",
-          label: "List schemas",
-          className: "api-method get",
-        },
-      ],
-    },
-    {
-      type: "category",
       label: "Exports",
       link: {
         type: "doc",
@@ -90,6 +52,22 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
+      label: "Metrics",
+      link: {
+        type: "doc",
+        id: "api/analytics/metrics",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/analytics/query-metrics",
+          label: "Query metrics",
+          className: "api-method post",
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "Privacy",
       link: {
         type: "doc",
@@ -107,6 +85,44 @@ const sidebar: SidebarsConfig = {
           id: "api/analytics/adjust-privacy-budget",
           label: "Adjust privacy budget",
           className: "api-method post",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Schemas",
+      link: {
+        type: "doc",
+        id: "api/analytics/schemas",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/analytics/register-schema",
+          label: "Register schema",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "api/analytics/list-schemas",
+          label: "List schemas",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "Transparency",
+      link: {
+        type: "doc",
+        id: "api/analytics/transparency",
+      },
+      items: [
+        {
+          type: "doc",
+          id: "api/analytics/get-user-data-export",
+          label: "What do you know about me?",
+          className: "api-method get",
         },
       ],
     },
